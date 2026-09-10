@@ -1,0 +1,10 @@
+# https://plazasotomayor.com/robots.txt
+# El contenido y los recursos son rastreables: no se bloquea nada del sitio.
+
+User-agent: *
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://plazasotomayor.com/sitemap-index.xml

@@ -1,0 +1,55 @@
+{
+  "name": "Plaza Sotomayor — Valparaíso, Chile",
+  "short_name": "Plaza Sotomayor",
+  "id": "/",
+  "description": "Guía de visita de Plaza Sotomayor en Valparaíso, Región de Valparaíso, Chile: historia, ubicación, mapa, cómo llegar y qué ver alrededor.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0d2a3a",
+  "theme_color": "#0d2a3a",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "categories": ["travel", "navigation", "education"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mapa y ubicación",
+      "short_name": "Mapa",
+      "description": "Ver el mapa y las coordenadas de Plaza Sotomayor",
+      "url": "/#mapa"
+    },
+    {
+      "name": "Preguntas frecuentes",
+      "short_name": "FAQ",
+      "description": "Antes de ir: respuestas rápidas sobre la visita",
+      "url": "/#faq-title"
+    }
+  ]
+}

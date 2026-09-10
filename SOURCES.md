@@ -5,5 +5,6 @@
 - Chile Travel — Plaza Sotomayor: https://chile.travel/atractivos/plaza-sotomayor/
 - Armada de Chile — Ruta Patrimonial Naval: https://www.armada.cl/comunicados/ruta-patrimonial-naval
 - Google Maps — Plaza Sotomayor: https://maps.app.goo.gl/1MuemWaALd55TzfKA
+- Wikimedia Commons — Fotografía de Plaza Sotomayor (licencia abierta): https://commons.wikimedia.org/wiki/File:Plaza_Sotomayor,_Valpara%C3%ADso.jpg
 
 Los datos sujetos a cambios (comercios, tarifas, cupos, servicios del entorno) se presentan como orientación y se recomienda confirmarlos antes de la visita.

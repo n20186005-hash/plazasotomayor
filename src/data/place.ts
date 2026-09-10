@@ -23,13 +23,20 @@ export type Photo = {
 
 export const place = {
   name: 'Plaza Sotomayor',
+  fullName: 'Plaza Sotomayor',
+  shortName: 'Plaza Sotomayor',
+  alternateNames: ['Sotomayor Square', 'Sotomayor Square, Valparaíso', 'Plaza Sotomayor de Valparaíso'],
   city: 'Valparaíso',
   region: 'Región de Valparaíso',
   country: 'Chile',
+  countryCode: 'CL',
+  postalCode: '2340000',
   address: 'Sotomayor, Valparaíso, Chile',
   plusCode: 'X96C+HF Valparaíso, Chile',
   latitude: -33.038443,
   longitude: -71.628552,
+  heroImage: '/images/plaza-sotomayor-panorama.jpg',
+  govtTourismUrl: 'https://chile.travel/atractivos/plaza-sotomayor/',
   rating: 4.5,
   reviewCount: 19296,
   access: 'Espacio público de acceso continuo',
@@ -83,7 +90,7 @@ export const place = {
   photos: [
     {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Plaza_Sotomayor%2C_Valpara%C3%ADso.jpg/1280px-Plaza_Sotomayor%2C_Valpara%C3%ADso.jpg',
-      alt: 'Vista de Plaza Sotomayor en Valparaíso con el monumento y edificios patrimoniales',
+      alt: 'Plaza Sotomayor: vista principal en Valparaíso, Chile, con el monumento y los edificios patrimoniales',
       caption: 'La plaza como antesala del puerto.',
       author: 'Rjcastillo',
       license: 'CC BY-SA 4.0',
@@ -138,3 +145,52 @@ export const faq = [
     answer: 'Muelle Prat, el Barrio Puerto, el Ascensor El Peral y el Paseo Yugoslavo forman una secuencia muy natural. Desde allí puedes continuar hacia el área histórica de los cerros Alegre y Concepción.'
   }
 ] as const;
+
+export type Source = {
+  label: string;
+  href: string;
+  note: string;
+};
+
+export const sources = [
+  {
+    label: 'Consejo de Monumentos Nacionales — Plaza Sotomayor',
+    href: 'https://www.monumentos.gob.cl/monumentos/zonas-tipicas/plaza-sotomayor-de-valparaiso-incluye-los-edificios-que-la-encierran',
+    note: 'Declaratoria oficial de Plaza Sotomayor como Zona Típica y descripción del conjunto protegido.'
+  },
+  {
+    label: 'Consejo de Monumentos Nacionales — Edificio de la Intendencia',
+    href: 'https://www.monumentos.gob.cl/monumentos/monumentos-historicos/edificio-de-la-intendencia-de-valparaiso',
+    note: 'Ficha del inmueble patrimonial que remata la plaza, hoy sede de la Armada de Chile.'
+  },
+  {
+    label: 'Chile Travel — Portal oficial de turismo de Chile',
+    href: 'https://chile.travel/atractivos/plaza-sotomayor/',
+    note: 'Ficha turística oficial con orientación de acceso y contexto del destino.'
+  },
+  {
+    label: 'Armada de Chile — Ruta Patrimonial Naval',
+    href: 'https://www.armada.cl/comunicados/ruta-patrimonial-naval',
+    note: 'Información institucional sobre el patrimonio naval asociado al monumento y al sector puerto.'
+  },
+  {
+    label: 'Google Maps — Ficha del lugar',
+    href: 'https://maps.app.goo.gl/1MuemWaALd55TzfKA',
+    note: 'Ubicación, reseñas y coordenadas publicadas para Plaza Sotomayor.'
+  },
+  {
+    label: 'Wikimedia Commons — Fotografía con licencia abierta',
+    href: 'https://commons.wikimedia.org/wiki/File:Plaza_Sotomayor,_Valpara%C3%ADso.jpg',
+    note: 'Repositorio y licencia de la imagen principal usada en esta guía.'
+  }
+] satisfies Source[];
+
+export const breadcrumb = [
+  { name: 'Plaza Sotomayor', href: '#inicio' },
+  { name: 'Valparaíso', href: '#acerca' },
+  { name: 'Región de Valparaíso', href: '#historia' },
+  { name: 'Chile', href: '#mapa' }
+] as const;
+
+export const imageRightsNotice =
+  'La propiedad y los derechos de autor de todas las imágenes mostradas pertenecen a sus fotógrafos originales. All images displayed on this website remain the property and copyright of their original photographers.';

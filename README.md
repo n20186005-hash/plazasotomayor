@@ -10,17 +10,17 @@ Sitio de una página en español de Chile, construido con Astro, Tailwind CSS y 
 - Tailwind CSS 4.3.3
 - TypeScript 6.0.3 (dentro del rango compatible de `@astrojs/check` 0.9.10)
 
-No se usa `pnpm-workspace.yaml` porque es un proyecto de un solo paquete.
+`pnpm-workspace.yaml` no define un workspace multi-paquete; solo autoriza los scripts de build de `esbuild` y `workerd` (`allowBuilds`), que pnpm bloquea por defecto. Sin esa declaración, `CI=1 pnpm install --frozen-lockfile` falla con `ERR_PNPM_IGNORED_BUILDS`. El proyecto mantiene un `pnpm-lock.yaml` real para instalaciones reproducibles.
 
 ## Dominio: un único punto de configuración
 
-El dominio no está codificado en componentes. Configure una sola variable `SITE`; Astro la toma como su campo `site`:
+El dominio no está codificado en los componentes: se resuelve con la variable `SITE`, que Astro usa como su campo `site`.
 
 ```bash
-SITE=https://tu-dominio.cl pnpm build
+SITE=https://plazasotomayor.com pnpm build
 ```
 
-Si `SITE` está vacío, el proyecto sigue siendo válido: no emite canonical/`og:url` absolutos y no activa `@astrojs/sitemap`. Cuando `SITE` tiene un dominio real, canonical, Open Graph, JSON-LD y sitemap derivan de `Astro.site`.
+El valor por defecto es `https://plazasotomayor.com`. Así, un build sin variables ya emite canonical, `og:url`, JSON-LD y sitemap absolutos. Para apuntar a otro dominio (por ejemplo, un entorno de pruebas), exporte `SITE` antes del build. Canonical, Open Graph, JSON-LD, `hreflang` y sitemap derivan siempre de `Astro.site`.
 
 ## Desarrollo
 
@@ -43,11 +43,11 @@ pnpm build
 grep -RInE 'example\\.com|localhost|chrome-extension://' dist || true
 ```
 
-Con `SITE` vacío, no debe generarse un sitemap. Con un dominio real configurado, `@astrojs/sitemap` genera el sitemap automáticamente y no se define `lastmod` manualmente.
+`@astrojs/sitemap` genera `sitemap-index.xml` a partir de `Astro.site`; no se define `lastmod` manualmente.
 
 ## Cloudflare Workers
 
-`wrangler.jsonc` apunta al Worker generado por Astro en `dist/_worker.js/index.js`. Para desplegar:
+`wrangler.jsonc` usa el entrypoint que expone el adaptador (`@astrojs/cloudflare/entrypoints/server`) y el binding `ASSETS` sobre `./dist`, tal como espera `@astrojs/cloudflare` 14 con Astro 7. Para desplegar:
 
 ```bash
 SITE=https://tu-dominio.cl pnpm deploy
@@ -55,8 +55,26 @@ SITE=https://tu-dominio.cl pnpm deploy
 
 ## Imágenes y licencias
 
-La interfaz, logo, favicon y Open Graph son locales. Las fotografías de contenido están referenciadas desde Wikimedia Commons con sus atribuciones CC visibles en la página. Si se requiere un paquete 100 % offline, descargue los cuatro archivos indicados en `PHOTO-ASSETS.md`, colóquelos en `public/images/photos/` y sustituya los `src` en `src/data/place.ts`.
+La interfaz, logo, favicon, iconos PWA y la imagen Open Graph son locales. Las fotografías de contenido están referenciadas desde Wikimedia Commons con sus atribuciones CC visibles en la página. La página y el pie muestran un aviso de derechos: todas las imágenes pertenecen a sus fotógrafos originales. Si se requiere un paquete 100 % offline, descargue los cuatro archivos indicados en `PHOTO-ASSETS.md`, colóquelos en `public/images/` y sustituya los `src` en `src/data/place.ts`.
 
 ## GA4 y cookies
 
 Measurement ID: `G-HXM22WWPKP`. El script oficial de Google se inserta solo después de aceptar analítica. El rechazo deja `analytics_storage` denegado.
+
+## SEO y datos estructurados
+
+La página declara en JSON-LD `TouristAttraction` + `LandmarksOrHistoricalBuildings` (con `@id`, `alternateName`, imagen, dirección con `postalCode`, coordenadas, `containedInPlace`, `hasMap`, `isAccessibleForFree` y `sameAs`), `WebSite`, `WebPage`, `BreadcrumbList` y `FAQPage`. El `<head>` incluye TDK, `robots`, canonical, `hreflang`, Open Graph y Twitter Card con imagen absoluta.
+
+El contenido refuerza la equivalencia de entidad («Plaza Sotomayor» = plaza central de Valparaíso) y la jerarquía geográfica Valparaíso → Región de Valparaíso → Chile, con nombre oficial, dirección (NAP) e imágenes con `alt` semántico. `public/robots.txt` permite el rastreo y apunta al sitemap.
+
+Componentes nuevos:
+
+- `src/components/Breadcrumbs.astro` — ruta geográfica visible.
+- `src/components/SourcesSection.astro` — fuentes, NAP, enlace oficial de turismo y derechos de imagen.
+
+## PWA
+
+- `public/manifest.webmanifest` — nombre, iconos 192/512/maskable, `theme_color` y accesos directos.
+- `public/sw.js` — precarga el shell y acelera visitas repetidas; la navegación usa estrategia network-first.
+- `public/icons/icon-192.png`, `public/icons/icon-512.png`, `public/icons/icon-maskable-512.png`.
+- El registro del service worker se hace de forma diferida en `src/layouts/BaseLayout.astro`.

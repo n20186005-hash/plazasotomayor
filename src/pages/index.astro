@@ -1,31 +1,52 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { faq, place } from '../data/place';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SourcesSection from '../components/SourcesSection.astro';
+import { breadcrumb, faq, imageRightsNotice, place } from '../data/place';
 
-const title = 'Plaza Sotomayor | Guía de visita en Valparaíso';
-const description = 'Guía independiente en español para visitar Plaza Sotomayor: historia, Monumento a los Héroes de Iquique, Muelle Prat, transporte, estacionamiento, comida y ruta a pie.';
+const title = 'Plaza Sotomayor (Valparaíso) - Guía del visitante y ubicación';
+const description = 'Descubre Plaza Sotomayor, el hito emblemático de Valparaíso, Región de Valparaíso, Chile. Consulta la ubicación y el mapa, cómo llegar, Muelle Prat, el Monumento a los Héroes de Iquique y consejos de viaje.';
 const siteUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
-const imageUrl = Astro.site ? new URL('/images/og-cover.svg', Astro.site).toString() : undefined;
+const heroImageUrl = Astro.site ? new URL(place.heroImage, Astro.site).toString() : undefined;
+const attractionId = siteUrl ? `${siteUrl}#attraction` : undefined;
+const webSiteId = siteUrl ? `${siteUrl}#website` : undefined;
 
 const attractionSchema = {
   '@context': 'https://schema.org',
   '@type': ['TouristAttraction', 'LandmarksOrHistoricalBuildings'],
-  name: place.name,
+  ...(attractionId ? { '@id': attractionId } : {}),
+  name: place.fullName,
+  alternateName: place.alternateNames,
   description,
   ...(siteUrl ? { url: siteUrl } : {}),
-  ...(imageUrl ? { image: [imageUrl] } : {}),
+  ...(heroImageUrl ? { image: [heroImageUrl] } : {}),
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Sotomayor',
+    streetAddress: 'Plaza Sotomayor',
     addressLocality: place.city,
     addressRegion: place.region,
-    addressCountry: 'CL'
+    postalCode: place.postalCode,
+    addressCountry: place.countryCode
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: place.latitude,
     longitude: place.longitude
   },
+  hasMap: place.mapsUrl,
+  containedInPlace: {
+    '@type': 'City',
+    name: place.city,
+    containedInPlace: {
+      '@type': 'AdministrativeArea',
+      name: place.region,
+      containedInPlace: {
+        '@type': 'Country',
+        name: place.country
+      }
+    }
+  },
+  touristType: ['Cultural tourism', 'Heritage tourism', 'City tourism'],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -35,6 +56,7 @@ const attractionSchema = {
     }
   ],
   isAccessibleForFree: true,
+  publicAccess: true,
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: place.rating,
@@ -42,8 +64,43 @@ const attractionSchema = {
     bestRating: 5,
     worstRating: 1
   },
-  sameAs: [place.mapsUrl]
+  sameAs: [place.mapsUrl, place.govtTourismUrl]
 };
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  ...(webSiteId ? { '@id': webSiteId } : {}),
+  ...(siteUrl ? { url: siteUrl } : {}),
+  name: 'Plaza Sotomayor — Valparaíso, Chile',
+  inLanguage: 'es-CL',
+  ...(attractionId ? { about: { '@id': attractionId } } : {})
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  ...(siteUrl ? { '@id': `${siteUrl}#webpage` } : {}),
+  ...(siteUrl ? { url: siteUrl } : {}),
+  name: title,
+  description,
+  inLanguage: 'es-CL',
+  ...(attractionId ? { about: { '@id': attractionId } } : {}),
+  ...(webSiteId ? { isPartOf: { '@id': webSiteId } } : {})
+};
+
+const breadcrumbSchema = siteUrl
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumb.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.href === '#inicio' ? siteUrl : `${siteUrl}${item.href}`
+      }))
+    }
+  : undefined;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -57,8 +114,21 @@ const faqSchema = {
     }
   }))
 };
+
+const structuredData = [
+  attractionSchema,
+  webSiteSchema,
+  webPageSchema,
+  ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+  faqSchema
+];
 ---
-<BaseLayout title={title} description={description} structuredData={[attractionSchema, faqSchema]}>
+<BaseLayout
+  title={title}
+  description={description}
+  structuredData={structuredData}
+  ogImageAlt="Plaza Sotomayor y el Monumento a los Héroes de Iquique en Valparaíso, Chile"
+>
   <header class="absolute inset-x-0 top-0 z-40">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
       <a href="#inicio" class="focus-ring inline-flex items-center gap-3 rounded-full bg-[#f4f0e8]/95 px-4 py-2.5 shadow-lg shadow-black/10 backdrop-blur" aria-label="Plaza Sotomayor, volver al inicio">
@@ -89,8 +159,12 @@ const faqSchema = {
             <span class="rounded-full bg-[#f4f0e8] px-3 py-2 font-extrabold text-[#0d2a3a]">★ {place.rating} · {place.reviewCount.toLocaleString('es-CL')} reseñas</span>
           </div>
           <p class="port-label mb-4 text-[#dfc9a5]">Entre el monumento y el mar</p>
-          <h1 class="serif-display max-w-4xl text-5xl font-black tracking-[-.04em] sm:text-7xl lg:text-[6.6rem] lg:leading-[.88]">Plaza<br />Sotomayor</h1>
-          <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">El gran salón cívico de Valparaíso: una plaza abierta hacia el puerto, marcada por el Monumento a los Héroes de Iquique y la fachada azul de la antigua Intendencia.</p>
+          <h1 class="serif-display max-w-4xl text-5xl font-black tracking-[-.04em] sm:text-7xl lg:text-[6.6rem] lg:leading-[.88]">
+            Plaza Sotomayor
+            <span class="mt-3 block text-2xl font-semibold tracking-normal text-[#dfc9a5] sm:text-3xl">Valparaíso, Chile</span>
+          </h1>
+          <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">Bienvenido a <strong class="font-extrabold text-white">Plaza Sotomayor</strong>, reconocida internacionalmente como la plaza central de <strong class="font-extrabold text-white">Valparaíso</strong>, Región de Valparaíso, Chile. Es el principal punto de encuentro para quienes visitan la ciudad y su puerto.</p>
+          <p class="mt-4 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">El gran salón cívico de Valparaíso: una plaza abierta hacia el puerto, marcada por el Monumento a los Héroes de Iquique y la fachada azul de la antigua Intendencia.</p>
           <div class="mt-9 flex flex-wrap gap-3">
             <a href="#visita" class="rounded-full bg-[#f4f0e8] px-6 py-3.5 font-extrabold text-[#0d2a3a] transition hover:-translate-y-0.5">Preparar la visita</a>
             <a href={place.mapsUrl} target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/35 bg-white/10 px-6 py-3.5 font-extrabold text-white backdrop-blur transition hover:bg-white/20">Abrir en Google Maps ↗</a>
@@ -102,11 +176,13 @@ const faqSchema = {
       </div>
     </section>
 
-    <section class="bg-[#0d2a3a] pb-20 text-white lg:pb-28">
-      <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
-        <div class="pt-4">
-          <p class="port-label mb-4 text-[#dfc9a5]">01 · La plaza</p>
-          <h2 class="serif-display text-4xl font-bold leading-tight sm:text-5xl">Un eje cívico construido con memoria portuaria.</h2>
+    <section id="acerca" class="scroll-mt-24 bg-[#0d2a3a] pb-20 text-white lg:pb-28">
+      <div class="mx-auto grid max-w-7xl gap-12 px-5 pt-16 lg:grid-cols-[.85fr_1.15fr] lg:px-8 lg:pt-20">
+        <div>
+          <Breadcrumbs />
+          <p class="port-label mb-4 mt-8 text-[#dfc9a5]">01 · Acerca de la plaza</p>
+          <h2 class="serif-display text-4xl font-bold leading-tight sm:text-5xl">Acerca de <span class="text-[#dfc9a5]">Plaza Sotomayor</span></h2>
+          <p class="mt-5 text-lg leading-8 text-white/70">Un eje cívico construido con memoria portuaria.</p>
         </div>
         <div class="grid gap-6 text-base leading-8 text-white/76 sm:grid-cols-2">
           <p>Plaza Sotomayor se ubica en la planicie costera de la bahía, frente a Muelle Prat. Fue declarada <strong class="text-white">Zona Típica en 1979</strong> y su área protegida se extendió posteriormente hacia el muelle.</p>
@@ -114,6 +190,39 @@ const faqSchema = {
           <p>El extremo opuesto al mar está presidido por la antigua Intendencia, actual sede naval. El edificio fue proyectado por Ernesto Urquieta y terminado para el centenario de la República.</p>
           <p>La secuencia plaza–estación–muelle muestra en pocos metros la identidad de Valparaíso: administración portuaria, transporte, vida cotidiana, arquitectura monumental y borde marítimo.</p>
         </div>
+      </div>
+
+      <div id="historia" class="mx-auto mt-16 max-w-7xl scroll-mt-24 px-5 lg:px-8 lg:mt-20">
+        <div class="grid gap-8 lg:grid-cols-[.85fr_1.15fr]">
+          <div>
+            <p class="port-label mb-4 text-[#dfc9a5]">Historia y significado</p>
+            <h2 class="serif-display text-4xl font-bold leading-tight sm:text-5xl">Historia y significado de <span class="text-[#dfc9a5]">Plaza Sotomayor</span></h2>
+          </div>
+          <div class="grid gap-6 text-base leading-8 text-white/76 sm:grid-cols-2">
+            <p>El nombre de la plaza honra a <strong class="text-white">Rafael Sotomayor Baeza</strong>, ministro de Guerra y Marina durante la Guerra del Pacífico. Desde finales del siglo XIX el espacio quedó ligado a la memoria naval del país y a la vida cívica del puerto.</p>
+            <p>En <strong class="text-white">1886</strong> se inauguró en su centro el <strong class="text-white">Monumento a los Héroes de Iquique</strong>, que con los años se convirtió en el hito urbano más reconocible de Valparaíso y en punto de ceremonias institucionales.</p>
+            <p>El área histórica de Valparaíso fue inscrita en <strong class="text-white">2003</strong> en la Lista del Patrimonio Mundial de la UNESCO. La plaza, el Barrio Puerto y los edificios que la encierran forman parte de ese conjunto portuario protegido.</p>
+            <p>Entre el monumento, la antigua Intendencia y el Muelle Prat, la plaza resume la identidad de la ciudad: memoria marítima, arquitectura monumental, transporte y vida cotidiana frente a la bahía.</p>
+          </div>
+        </div>
+        <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <li class="rounded-[1.6rem] border border-white/12 bg-white/[.06] p-6">
+            <span class="font-mono text-sm text-[#dfc9a5]">1886</span>
+            <p class="mt-4 text-sm leading-6 text-white/72">Inauguración del Monumento a los Héroes de Iquique, obra central de la plaza y de la memoria naval chilena.</p>
+          </li>
+          <li class="rounded-[1.6rem] border border-white/12 bg-white/[.06] p-6">
+            <span class="font-mono text-sm text-[#dfc9a5]">1910</span>
+            <p class="mt-4 text-sm leading-6 text-white/72">Se completa el edificio de la antigua Intendencia, proyectado por Ernesto Urquieta, como remate monumental frente al mar.</p>
+          </li>
+          <li class="rounded-[1.6rem] border border-white/12 bg-white/[.06] p-6">
+            <span class="font-mono text-sm text-[#dfc9a5]">1979</span>
+            <p class="mt-4 text-sm leading-6 text-white/72">Plaza Sotomayor es declarada Zona Típica junto con los edificios que la encierran, ampliando después su área protegida hacia el muelle.</p>
+          </li>
+          <li class="rounded-[1.6rem] border border-white/12 bg-white/[.06] p-6">
+            <span class="font-mono text-sm text-[#dfc9a5]">2003</span>
+            <p class="mt-4 text-sm leading-6 text-white/72">El área histórica portuaria de Valparaíso ingresa a la Lista del Patrimonio Mundial de la UNESCO.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -184,8 +293,9 @@ const faqSchema = {
     <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
       <div class="grid gap-14 lg:grid-cols-2">
         <div>
-          <p class="port-label mb-3 text-[#a94c35]">04 · Cómo llegar</p>
-          <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">Llegar al corazón del plan.</h2>
+          <p class="port-label mb-3 text-[#a94c35]">04 · Ubicación y acceso</p>
+          <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">Ubicación y cómo visitar Plaza Sotomayor en Valparaíso</h2>
+          <p class="mt-5 max-w-md text-lg leading-8 text-slate-700">Llegar al corazón del plan.</p>
           <div class="route-line mt-8 space-y-7">
             <div class="relative pl-8">
               <span class="absolute left-0 top-1.5 h-3 w-3 rounded-full bg-[#a94c35]"></span>
@@ -231,8 +341,9 @@ const faqSchema = {
         <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
           <div>
             <p class="port-label mb-3 text-[#dfc9a5]">05 · A pie</p>
-            <h2 class="serif-display text-4xl font-bold sm:text-5xl">Cuatro extensiones naturales.</h2>
-            <p class="mt-5 max-w-md leading-7 text-white/70">No hace falta “terminar” la plaza: úsala como nudo entre el plan, el puerto y los cerros históricos.</p>
+            <h2 class="serif-display text-4xl font-bold sm:text-5xl">Monumentos y atractivos cerca de Plaza Sotomayor</h2>
+            <p class="mt-5 max-w-md leading-7 text-white/70">Al visitar Plaza Sotomayor, los visitantes pueden explorar fácilmente hitos históricos y puntos de interés cercanos, incluidos Muelle Prat y el Ascensor El Peral.</p>
+            <p class="mt-3 max-w-md leading-7 text-white/60">No hace falta “terminar” la plaza: úsala como nudo entre el plan, el puerto y los cerros históricos.</p>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
             {place.nearby.map((item, index) => (
@@ -270,12 +381,12 @@ const faqSchema = {
       </div>
     </section>
 
-    <section id="mapa" class="bg-[#d9c9ad] py-20 lg:py-28">
+    <section id="mapa" class="scroll-mt-24 bg-[#d9c9ad] py-20 lg:py-28">
       <div class="mx-auto max-w-7xl px-5 lg:px-8">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p class="port-label mb-3 text-[#a94c35]">07 · Ubicación</p>
-            <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">Frente a la bahía.</h2>
+            <p class="port-label mb-3 text-[#a94c35]">07 · Ubicación y mapa</p>
+            <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">Mapa de Plaza Sotomayor: frente a la bahía.</h2>
           </div>
           <div class="text-sm leading-6 text-slate-700 md:text-right">
             <strong>{place.address}</strong><br />Plus Code: {place.plusCode}
@@ -284,7 +395,11 @@ const faqSchema = {
         <div class="overflow-hidden rounded-[2rem] border-8 border-[#f7f4ed] bg-[#f7f4ed] shadow-xl shadow-[#0d2a3a]/10">
           <iframe src={place.embedUrl} title="Mapa de Plaza Sotomayor en Valparaíso" class="h-[480px] w-full border-0 lg:h-[570px]" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
-        <div class="mt-5 flex justify-end">
+        <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+          <p class="max-w-xl text-sm leading-6 text-slate-700">
+            Para información oficial y actualizaciones regionales, visita{' '}
+            <a href={place.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-[#0d2a3a] underline decoration-[#a94c35] decoration-2 underline-offset-4">el portal oficial de turismo de Chile / Región de Valparaíso</a>.
+          </p>
           <a href={place.mapsUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-[#0d2a3a] underline decoration-[#a94c35] decoration-2 underline-offset-4">Abrir indicaciones en Google Maps ↗</a>
         </div>
       </div>
@@ -308,22 +423,7 @@ const faqSchema = {
       </div>
     </section>
 
-    <section class="border-y border-[#0d2a3a]/10 bg-[#f7f4ed] py-16">
-      <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <div class="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <p class="port-label mb-2 text-[#1f6d79]">Fuentes de orientación</p>
-            <h2 class="text-2xl font-black text-[#0d2a3a]">Información basada en fuentes patrimoniales y turísticas.</h2>
-            <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Se contrastó información del Consejo de Monumentos Nacionales, Chile Travel y Armada de Chile. Datos comerciales, tarifas y operación cotidiana pueden cambiar.</p>
-          </div>
-          <div class="flex flex-wrap gap-2 md:max-w-xs md:justify-end">
-            <a href="https://www.monumentos.gob.cl/monumentos/zonas-tipicas/plaza-sotomayor-de-valparaiso-incluye-los-edificios-que-la-encierran" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[#0d2a3a]/15 px-4 py-2 text-xs font-bold hover:bg-white">Monumentos ↗</a>
-            <a href="https://chile.travel/atractivos/plaza-sotomayor/" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[#0d2a3a]/15 px-4 py-2 text-xs font-bold hover:bg-white">Chile Travel ↗</a>
-            <a href="https://www.armada.cl/comunicados/ruta-patrimonial-naval" target="_blank" rel="noopener noreferrer" class="rounded-full border border-[#0d2a3a]/15 px-4 py-2 text-xs font-bold hover:bg-white">Armada ↗</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <SourcesSection />
   </main>
 
   <footer class="bg-[#071c27] px-5 py-12 text-white lg:px-8">
@@ -333,7 +433,12 @@ const faqSchema = {
           <img src="/images/logo-mark-light.svg" alt="" width="56" height="56" />
           <div>
             <strong class="serif-display text-2xl">Plaza Sotomayor</strong>
-            <p class="mt-1 text-sm text-white/55">Guía independiente para conocer el corazón portuario de Valparaíso.</p>
+            <p class="port-label mt-2 text-[10px] text-[#dfc9a5]">Valparaíso · Región de Valparaíso · Chile</p>
+            <address class="mt-3 not-italic text-sm leading-6 text-white/60">
+              {place.fullName} — {place.address}<br />
+              Plus Code: {place.plusCode}
+            </address>
+            <p class="mt-2 text-sm text-white/55">Guía independiente para conocer el corazón portuario de Valparaíso.</p>
           </div>
         </div>
         <div class="grid gap-4 text-sm text-white/65 sm:grid-cols-3">
@@ -352,7 +457,10 @@ const faqSchema = {
         </div>
       </div>
       <div class="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-white/10 pt-7 text-xs text-white/45">
-        <p>Sitio informativo independiente; no es el sitio oficial de Plaza Sotomayor, la Municipalidad de Valparaíso ni la Armada de Chile.</p>
+        <div>
+          <p>Sitio informativo independiente; no es el sitio oficial de Plaza Sotomayor, la Municipalidad de Valparaíso ni la Armada de Chile.</p>
+          <p class="mt-2 max-w-3xl">{imageRightsNotice}</p>
+        </div>
         <a href="#inicio" class="font-bold text-white/70 hover:text-white">Volver arriba ↑</a>
       </div>
     </div>

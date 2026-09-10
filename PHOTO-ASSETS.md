@@ -21,3 +21,5 @@ Las imágenes son de Wikimedia Commons y se muestran con atribución en el sitio
    - Imagen: https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Muelle_Prat%2C_Valpara%C3%ADso.jpg/960px-Muelle_Prat%2C_Valpara%C3%ADso.jpg
    - Fuente: https://commons.wikimedia.org/wiki/File:Muelle_Prat,_Valpara%C3%ADso.jpg
    - Autor: Techicortes — CC BY-SA 4.0
+
+Las copias locales viven en `public/images/` y se usan para Open Graph, el manifest PWA y la precarga del service worker. `plaza-sotomayor-panorama.jpg` (1280×644) es la portada social `og:image`. Los iconos PWA se generan en `public/icons/` (`icon-192.png`, `icon-512.png`, `icon-maskable-512.png`) con la paleta del sitio.

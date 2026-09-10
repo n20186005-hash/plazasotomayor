@@ -5,32 +5,59 @@ interface Props {
   title: string;
   description: string;
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
 }
 
-const { title, description, structuredData } = Astro.props;
+const {
+  title,
+  description,
+  structuredData,
+  ogImage = '/images/plaza-sotomayor-panorama.jpg',
+  ogImageAlt = 'Plaza Sotomayor en Valparaíso, Región de Valparaíso, Chile',
+  ogImageWidth = 1280,
+  ogImageHeight = 644
+} = Astro.props;
+
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
-const ogImage = Astro.site ? new URL('/images/og-cover.svg', Astro.site).toString() : undefined;
+const absoluteOgImage = Astro.site ? new URL(ogImage, Astro.site).toString() : undefined;
 ---
 <!doctype html>
 <html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#0d2a3a" />
     <meta name="color-scheme" content="light" />
+    <meta name="author" content="Guía independiente de Plaza Sotomayor" />
     <title>{title}</title>
     {canonical && <link rel="canonical" href={canonical} />}
+    {canonical && <link rel="alternate" hreflang="es-cl" href={canonical} />}
+    {canonical && <link rel="alternate" hreflang="x-default" href={canonical} />}
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plaza Sotomayor · Valparaíso, Chile" />
     <meta property="og:locale" content="es_CL" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+    {absoluteOgImage && <meta property="og:image:width" content={String(ogImageWidth)} />}
+    {absoluteOgImage && <meta property="og:image:height" content={String(ogImageHeight)} />}
+    {absoluteOgImage && <meta property="og:image:alt" content={ogImageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+    {absoluteOgImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Plaza Sotomayor" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icons/favicon-32x32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="/icons/favicon-16x16.png" sizes="16x16" type="image/png" />
@@ -76,6 +103,13 @@ const ogImage = Astro.site ? new URL('/images/og-cover.svg', Astro.site).toStrin
           banner?.setAttribute('hidden', '');
         });
       })();
+    </script>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
   </body>
 </html>

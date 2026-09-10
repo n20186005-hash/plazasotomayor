@@ -1,0 +1,18 @@
+---
+import { breadcrumb } from '../data/place';
+---
+
+<nav aria-label="Ruta geográfica de Plaza Sotomayor" class="text-xs">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-white/55">
+    {breadcrumb.map((item, index) => (
+      <li class="flex items-center gap-2">
+        {index > 0 && <span aria-hidden="true" class="text-white/30">›</span>}
+        {index === breadcrumb.length - 1 ? (
+          <span aria-current="location" class="font-bold text-white/80">{item.name}</span>
+        ) : (
+          <a href={item.href} class="port-label text-white/50 transition hover:text-white">{item.name}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

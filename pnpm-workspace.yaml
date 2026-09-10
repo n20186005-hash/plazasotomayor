@@ -1,0 +1,7 @@
+# Este proyecto es de un solo paquete: este archivo no declara un workspace
+# multi-paquete, solo autoriza los scripts de build que pnpm bloquea por defensa
+# de cadena de suministro. Sin esta declaración, `CI=1 pnpm install
+# --frozen-lockfile` falla con ERR_PNPM_IGNORED_BUILDS.
+allowBuilds:
+  esbuild: true
+  workerd: true

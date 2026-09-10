@@ -3,13 +3,13 @@ import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const configuredSite = process.env.SITE?.trim() || undefined;
+const configuredSite = process.env.SITE?.trim() || 'https://plazasotomayor.com';
 
 export default defineConfig({
   site: configuredSite,
   output: 'server',
   adapter: cloudflare(),
-  integrations: configuredSite ? [sitemap()] : [],
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
   }
