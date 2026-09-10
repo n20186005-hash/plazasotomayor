@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { title, description, structuredData } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const ogImage = Astro.site ? new URL('/images/og-cover.svg', Astro.site).toString() : undefined;
+---
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0d2a3a" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icons/favicon-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>}
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      (() => {
+        const measurementId = 'G-HXM22WWPKP';
+        const consentKey = 'plaza-sotomayor-analytics-consent';
+        const banner = document.querySelector('[data-cookie-banner]');
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+        window.gtag('consent', 'default', { analytics_storage: 'denied' });
+
+        const loadAnalytics = () => {
+          if (document.querySelector(`script[data-ga4="${measurementId}"]`)) return;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+          script.dataset.ga4 = measurementId;
+          document.head.appendChild(script);
+          window.gtag('consent', 'update', { analytics_storage: 'granted' });
+          window.gtag('js', new Date());
+          window.gtag('config', measurementId, { anonymize_ip: true });
+        };
+
+        const savedConsent = localStorage.getItem(consentKey);
+        if (savedConsent === 'accepted') loadAnalytics();
+        if (savedConsent) banner?.setAttribute('hidden', '');
+
+        document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
+          localStorage.setItem(consentKey, 'accepted');
+          loadAnalytics();
+          banner?.setAttribute('hidden', '');
+        });
+        document.querySelector('[data-cookie-reject]')?.addEventListener('click', () => {
+          localStorage.setItem(consentKey, 'rejected');
+          window.gtag('consent', 'update', { analytics_storage: 'denied' });
+          banner?.setAttribute('hidden', '');
+        });
+      })();
+    </script>
+  </body>
+</html>
