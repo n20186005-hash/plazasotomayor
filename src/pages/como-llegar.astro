@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubpageNav from '../components/SubpageNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { buildAlternates } from '../i18n';
+import { place } from '../data/place';
+
+const siteUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
+const alternates = siteUrl ? buildAlternates(siteUrl, { 'es-cl': '/como-llegar/', en: '/en/getting-there/' }) : undefined;
+const attractionId = siteUrl ? `${siteUrl}#attraction` : undefined;
+
+const title = 'Cómo llegar a Plaza Sotomayor, Valparaíso: transporte y ubicación';
+const description = 'Cómo llegar a Plaza Sotomayor en Valparaíso: metro y tren (Estación Puerto), buses y trolebuses, ruta desde Santiago por Ruta 68, estacionamiento y consejos para moverse desde el terminal de buses.';
+
+const faq = [
+  {
+    question: '¿Cómo llegar a Plaza Sotomayor en transporte público?',
+    answer: 'La Estación Puerto queda en el sector inmediato a la plaza y es una de las llegadas más directas. También circulan buses urbanos y trolebuses por el plan de Valparaíso.'
+  },
+  {
+    question: '¿A cuánto queda Plaza Sotomayor del terminal de buses?',
+    answer: 'Desde el terminal de buses de Valparaíso, el trayecto en taxi o vehículo particular suele tomar entre 10 y 15 minutos según el tránsito; también puedes combinar transporte urbano o caminar por el plan.'
+  },
+  {
+    question: '¿Se puede ir a Plaza Sotomayor desde Santiago?',
+    answer: 'Sí. Valparaíso está a unos 120 km por Ruta 68; buses interurbanos, transfer y vehículo particular son las opciones habituales. Desde la estación de buses o el centro, el plan del puerto queda a pocos minutos.'
+  },
+  {
+    question: '¿Hay estación de metro o tren cerca de Plaza Sotomayor?',
+    answer: 'Sí. La Estación Puerto queda en el entorno inmediato de la plaza y forma parte del sistema de tren de cercanías Valparaíso–Limache, conocido localmente como Metro Valparaíso o Merval. Es una de las llegadas más directas para moverse por el plan.'
+  },
+  {
+    question: '¿Cómo bajar desde los cerros al nivel de la plaza?',
+    answer: 'Desde los cerros Alegre y Concepción puedes usar ascensores como el Ascensor El Peral o el Ascensor Concepción y continuar a pie por el Barrio Puerto hasta Plaza Sotomayor. El descenso al nivel del plan es corto y forma parte del recorrido patrimonial.'
+  }
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction', 'LandmarksOrHistoricalBuildings'],
+  ...(attractionId ? { '@id': attractionId } : {}),
+  name: place.fullName,
+  url: siteUrl,
+  ...(siteUrl ? { image: [new URL(place.heroImage, siteUrl).toString()] } : {})
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer }
+  }))
+};
+
+const breadcrumbSchema = siteUrl
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Plaza Sotomayor', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: 'Cómo llegar', item: `${siteUrl}como-llegar/` }
+      ]
+    }
+  : undefined;
+
+const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : [])];
+---
+
+<BaseLayout lang="es" title={title} description={description} structuredData={structuredData} hreflangAlternates={alternates}>
+  <SubpageNav lang="es" altHref="/en/getting-there/" />
+  <main>
+    <section class="relative overflow-hidden bg-[#0d2a3a] text-white">
+      <div class="absolute inset-0">
+        <img src={place.photos[3].src} alt={place.photos[3].alt} class="h-full w-full object-cover opacity-50" fetchpriority="high" />
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,24,34,.92)_0%,rgba(8,31,43,.7)_60%,rgba(8,31,43,.35)_100%)]"></div>
+      </div>
+      <div class="relative mx-auto max-w-7xl px-5 pb-16 pt-20 lg:px-8 lg:pb-24 lg:pt-28">
+        <p class="port-label mb-4 text-[#dfc9a5]">Ubicación y acceso</p>
+        <h1 class="serif-display max-w-4xl text-4xl font-black leading-[.95] sm:text-6xl">Cómo llegar a Plaza Sotomayor</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">La plaza está en el plan de Valparaíso, frente a Muelle Prat. Aquí tienes las opciones para llegar en transporte público, en auto o desde Santiago.</p>
+      </div>
+    </section>
+
+    <article class="mx-auto max-w-3xl px-5 py-16 lg:px-8 lg:py-24">
+      <section class="scroll-mt-24">
+        <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">En transporte público</h2>
+        <p class="mt-5 leading-8 text-slate-700">La <strong class="text-[#0d2a3a]">Estación Puerto</strong> queda en el sector inmediato a la plaza y es una de las llegadas más directas para moverse por el plan de Valparaíso. Distintos buses urbanos y el <strong class="text-[#0d2a3a]">trolebús</strong> recorren el eje del Barrio Puerto; el trolebús, además, forma parte del paisaje de transporte histórico de la ciudad.</p>
+      </section>
+
+      <section class="mt-12 scroll-mt-24">
+        <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Desde Santiago</h2>
+        <p class="mt-5 leading-8 text-slate-700">Valparaíso está a unos <strong class="text-[#0d2a3a]">120 km</strong> por <strong class="text-[#0d2a3a]">Ruta 68</strong>. Buses interurbanos, servicios de transfer y vehículo particular son las opciones habituales. Desde la estación de buses o el centro, el plan del puerto queda a pocos minutos.</p>
+        <p class="mt-4 leading-8 text-slate-700">Chile Travel estima aproximadamente 10–15 minutos en taxi o vehículo particular desde el terminal de buses de Valparaíso hasta la plaza, según el tránsito.</p>
+      </section>
+
+      <section class="mt-12 scroll-mt-24">
+        <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">En auto y estacionamiento</h2>
+        <p class="mt-5 leading-8 text-slate-700">Hay estacionamientos privados en el entorno de Errázuriz y Estación Puerto, además de oferta en el sector céntrico. Las tarifas, el acceso y los cupos pueden variar; en fines de semana, eventos o ceremonias conviene considerar transporte público.</p>
+        <p class="mt-4 leading-8 text-slate-700">Si tu plan incluye cerros, ascensores y miradores, dejar el auto y continuar a pie suele simplificar el recorrido. Valparaíso tiene pendientes fuertes: calzado cómodo hace una diferencia real.</p>
+      </section>
+
+      <section class="mt-12 scroll-mt-24">
+        <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Mapa y ubicación</h2>
+        <p class="mt-5 leading-8 text-slate-700"><strong class="text-[#0d2a3a]">{place.address}</strong> · Plus Code: {place.plusCode}.</p>
+        <div class="mt-6 overflow-hidden rounded-[1.8rem] border-8 border-[#f7f4ed] bg-[#f7f4ed] shadow-xl shadow-[#0d2a3a]/10">
+          <iframe src={place.embedUrl} title="Mapa de Plaza Sotomayor en Valparaíso" class="h-[420px] w-full border-0 lg:h-[480px]" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <p class="mt-4 text-sm leading-6 text-slate-600">Para indicaciones, abre{' '}
+          <a href={place.mapsUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-[#0d2a3a] underline decoration-[#a94c35] decoration-2 underline-offset-4">Plaza Sotomayor en Google Maps ↗</a>.
+        </p>
+      </section>
+
+      <section class="mt-12 scroll-mt-24" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Preguntas frecuentes</h2>
+        <div class="mt-8 divide-y divide-[#0d2a3a]/15 border-y border-[#0d2a3a]/15">
+          {faq.map((item) => (
+            <details class="group py-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-5 rounded-lg py-2 text-lg font-extrabold text-[#0d2a3a]">
+                {item.question}
+                <span class="text-2xl font-light text-[#a94c35] transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="max-w-3xl pb-3 pr-10 pt-2 leading-7 text-slate-700">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <nav aria-label="Páginas relacionadas" class="mt-12 flex flex-wrap gap-3 text-sm">
+        <a href="/" class="rounded-full bg-[#0d2a3a] px-4 py-2.5 font-bold text-white hover:bg-[#123347]">← Guía principal de Plaza Sotomayor</a>
+        <a href="/historia/" class="rounded-full border border-[#0d2a3a]/15 bg-white px-4 py-2.5 font-bold text-[#0d2a3a] hover:border-[#a94c35]/40">Historia →</a>
+      </nav>
+    </article>
+  </main>
+  <SiteFooter lang="es" />
+</BaseLayout>

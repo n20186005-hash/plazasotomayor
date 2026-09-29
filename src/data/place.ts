@@ -37,8 +37,10 @@ export const place = {
   longitude: -71.628552,
   heroImage: '/images/plaza-sotomayor-panorama.jpg',
   govtTourismUrl: 'https://chile.travel/atractivos/plaza-sotomayor/',
+  municipalityUrl: 'https://www.valparaiso.cl/',
+  wikipediaUrl: 'https://es.wikipedia.org/wiki/Plaza_Sotomayor',
   rating: 4.5,
-  reviewCount: 19296,
+  reviewCount: 19314,
   access: 'Espacio público de acceso continuo',
   admission: 'Acceso gratuito a la plaza y al monumento exterior. Paseos en lancha, museos y otros servicios del entorno se pagan por separado.',
   recommendedStay: '45–90 min para la plaza y el frente portuario; 2–3 h si sumas Muelle Prat y un paseo por los cerros.',
@@ -143,6 +145,18 @@ export const faq = [
   {
     question: '¿Qué más se puede visitar caminando desde la plaza?',
     answer: 'Muelle Prat, el Barrio Puerto, el Ascensor El Peral y el Paseo Yugoslavo forman una secuencia muy natural. Desde allí puedes continuar hacia el área histórica de los cerros Alegre y Concepción.'
+  },
+  {
+    question: '¿Qué es el Monumento a los Héroes de Iquique y cuál es su historia?',
+    answer: 'Es el hito central de Plaza Sotomayor, inaugurado en 1886 para honrar a los marinos caídos en los combates navales de Iquique y Punta Gruesa durante la Guerra del Pacífico. Bajo el monumento hay una cripta conmemorativa y el conjunto se usa para ceremonias cívicas y navales de Valparaíso.'
+  },
+  {
+    question: '¿Cuáles son otras plazas o plazas cercanas en Valparaíso?',
+    answer: 'Valparaíso tiene varias plazas patrimoniales. Además de Plaza Sotomayor en el plan del Barrio Puerto, destacan la Plaza de la Victoria, la Plaza Aníbal Pinto y la Plaza O´Higgins en los cerros. Plaza Sotomayor es la principal por su frente portuario y el Monumento a los Héroes de Iquique.'
+  },
+  {
+    question: '¿Dónde queda Calle Sotomayor y qué hay cerca?',
+    answer: 'Calle Sotomayor bordea el lado del cerro de Plaza Sotomayor, frente a la antigua Intendencia (hoy sede de la Armada de Chile). En sus alrededores hay cafés, locales del Barrio Puerto y el acceso a los ascensores que suben a los cerros históricos.'
   }
 ] as const;
 

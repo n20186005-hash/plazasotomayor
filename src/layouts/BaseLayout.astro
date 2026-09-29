@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title: string;
@@ -9,6 +10,8 @@ interface Props {
   ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
+  lang?: 'es' | 'en';
+  hreflangAlternates?: { hreflang: string; href: string }[];
 }
 
 const {
@@ -18,14 +21,27 @@ const {
   ogImage = '/images/plaza-sotomayor-panorama.jpg',
   ogImageAlt = 'Plaza Sotomayor en Valparaíso, Región de Valparaíso, Chile',
   ogImageWidth = 1280,
-  ogImageHeight = 644
+  ogImageHeight = 644,
+  lang = 'es',
+  hreflangAlternates
 } = Astro.props;
+
+const htmlLang = lang === 'en' ? 'en' : 'es-CL';
+const ogLocale = lang === 'en' ? 'en_US' : 'es_CL';
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 const absoluteOgImage = Astro.site ? new URL(ogImage, Astro.site).toString() : undefined;
+
+const defaultAlternates = canonical
+  ? [
+      { hreflang: 'es-cl', href: canonical },
+      { hreflang: 'x-default', href: canonical }
+    ]
+  : [];
+const alternates = hreflangAlternates && hreflangAlternates.length ? hreflangAlternates : defaultAlternates;
 ---
 <!doctype html>
-<html lang="es-CL">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,11 +52,12 @@ const absoluteOgImage = Astro.site ? new URL(ogImage, Astro.site).toString() : u
     <meta name="author" content="Guía independiente de Plaza Sotomayor" />
     <title>{title}</title>
     {canonical && <link rel="canonical" href={canonical} />}
-    {canonical && <link rel="alternate" hreflang="es-cl" href={canonical} />}
-    {canonical && <link rel="alternate" hreflang="x-default" href={canonical} />}
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Plaza Sotomayor · Valparaíso, Chile" />
-    <meta property="og:locale" content="es_CL" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
@@ -64,8 +81,9 @@ const absoluteOgImage = Astro.site ? new URL(ogImage, Astro.site).toString() : u
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>}
   </head>
-  <body>
+  <body id="top">
     <slot />
+    <CookieBanner lang={lang} />
     <script is:inline>
       (() => {
         const measurementId = 'G-HXM22WWPKP';

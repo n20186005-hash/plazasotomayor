@@ -1,18 +1,27 @@
 ---
 import { breadcrumb } from '../data/place';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+const { lang = 'es' } = Astro.props;
+const regionEn = 'Valparaíso Region';
 ---
 
 <nav aria-label="Ruta geográfica de Plaza Sotomayor" class="text-xs">
   <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-white/55">
-    {breadcrumb.map((item, index) => (
-      <li class="flex items-center gap-2">
-        {index > 0 && <span aria-hidden="true" class="text-white/30">›</span>}
-        {index === breadcrumb.length - 1 ? (
-          <span aria-current="location" class="font-bold text-white/80">{item.name}</span>
-        ) : (
-          <a href={item.href} class="port-label text-white/50 transition hover:text-white">{item.name}</a>
-        )}
-      </li>
-    ))}
+    {breadcrumb.map((item, index) => {
+      const name = lang === 'en' && item.name === 'Región de Valparaíso' ? regionEn : item.name;
+      return (
+        <li class="flex items-center gap-2">
+          {index > 0 && <span aria-hidden="true" class="text-white/30">›</span>}
+          {index === breadcrumb.length - 1 ? (
+            <span aria-current="location" class="font-bold text-white/80">{name}</span>
+          ) : (
+            <a href={item.href} class="port-label text-white/50 transition hover:text-white">{name}</a>
+          )}
+        </li>
+      );
+    })}
   </ol>
 </nav>
