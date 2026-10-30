@@ -1,0 +1,13 @@
+---
+const { lang = 'es' } = Astro.props;
+const en = lang === 'en';
+const url = 'https://municipalidaddevalparaiso.cl/que-pasara-con-plaza-sotomayor-obras-de-renovacion-comenzaran-en-noviembre/';
+---
+<aside class="border-y border-[#a94c35]/30 bg-[#f7f4ed] px-5 py-7 text-[#0d2a3a]">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="text-xl font-extrabold">{en ? 'Visit update · checked 29 October 2026' : 'Antes de visitar · revisión 29 de octubre de 2026'}</h2>
+    <p class="mt-3 leading-7">{en ? 'The municipality announced a first renovation stage from 1 November 2026, planned for 150 days. Its October notice describes limited fencing around the central islands, with no new vehicle closures planned for November and December. Check current pedestrian routes; this is a published plan, not a report that work has already begun.' : 'El municipio anunció una primera etapa de renovación desde el 1 de noviembre de 2026, prevista para 150 días. El aviso de octubre indica cierres acotados en los bandejones centrales, sin nuevos cortes vehiculares previstos en noviembre y diciembre. Confirma los pasos peatonales; es un plan publicado, no una constatación de inicio de obras.'}</p>
+    <p class="mt-3 leading-7">{en ? 'Google Maps showed 4.5/5 from 19,359 third-party reviews and “24 hours” on 29 October 2026. This does not guarantee access during works or ceremonies, or entry to the crypt or surrounding buildings. Tour advertisements are separate services.' : 'Google Maps mostraba 4,5/5 con 19.359 reseñas de terceros y “24 horas” el 29 de octubre de 2026. No garantiza acceso durante obras o actos, ni entrada a la cripta o a los edificios del entorno. Los anuncios de tours corresponden a servicios separados.'}</p>
+    <a class="mt-3 inline-block font-bold underline" href={url}>{en ? 'Municipal announcement · 19 October 2026' : 'Anuncio municipal · 19 de octubre de 2026'} ↗</a>
+  </div>
+</aside>

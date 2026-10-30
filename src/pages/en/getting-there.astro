@@ -1,4 +1,6 @@
 ---
+import VisitNotice from '../../components/VisitNotice.astro';
+import PhotoCredits from '../../components/PhotoCredits.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SubpageNav from '../../components/SubpageNav.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
@@ -31,7 +33,7 @@ const faq = [
   },
   {
     question: 'How do I get down from the hills to the plaza level?',
-    answer: 'From the Alegre and Concepción hills you can take funiculars such as Ascensor El Peral or Ascensor Concepción and then walk through Barrio Puerto to Plaza Sotomayor. The walk down to the plan level is short and part of the heritage route.'
+    answer: 'From the Alegre and Concepción hills you can take funiculars such as Ascensor El Peral or Ascensor Concepción and then walk through Barrio Puerto to Plaza Sotomayor. Check current operation of each funicular; service and step-free access are not guaranteed.'
   }
 ];
 
@@ -73,7 +75,7 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
   <main>
     <section class="relative overflow-hidden bg-[#0d2a3a] text-white">
       <div class="absolute inset-0">
-        <img src={place.photos[3].src} alt={place.photos[3].alt} class="h-full w-full object-cover opacity-50" fetchpriority="high" />
+        <img src={place.photos[3].src} alt={'Muelle Prat and boats in Valparaíso harbour'} class="h-full w-full object-cover opacity-50" fetchpriority="high" />
         <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,24,34,.92)_0%,rgba(8,31,43,.7)_60%,rgba(8,31,43,.35)_100%)]"></div>
       </div>
       <div class="relative mx-auto max-w-7xl px-5 pb-16 pt-20 lg:px-8 lg:pb-24 lg:pt-28">
@@ -82,6 +84,7 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
         <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">The plaza is on the plan of Valparaíso, facing Muelle Prat. Here are the options to arrive by public transport, by car or from Santiago.</p>
       </div>
     </section>
+    <VisitNotice lang="en" />
 
     <article class="mx-auto max-w-3xl px-5 py-16 lg:px-8 lg:py-24">
       <section class="scroll-mt-24">
@@ -97,13 +100,13 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">By car and parking</h2>
-        <p class="mt-5 leading-8 text-slate-700">There are private parking lots around Errázuriz and Estación Puerto, plus offer in the central sector. Rates, access and spaces may vary; on weekends, events or ceremonies, public transport is worth considering.</p>
+        <p class="mt-5 leading-8 text-slate-700">No specific parking operator, price or available spaces have been verified. Check directly and review construction access before driving.</p>
         <p class="mt-4 leading-8 text-slate-700">If your plan includes hills, funiculars and viewpoints, leaving the car and continuing on foot usually simplifies the route. Valparaíso has steep slopes: comfortable footwear makes a real difference.</p>
       </section>
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Map and location</h2>
-        <p class="mt-5 leading-8 text-slate-700"><strong class="text-[#0d2a3a]">{place.address}</strong> · Plus Code: {place.plusCode}.</p>
+        <p class="mt-5 leading-8 text-slate-700"><strong class="text-[#0d2a3a]">{place.address}</strong>.</p>
         <div class="mt-6 overflow-hidden rounded-[1.8rem] border-8 border-[#f7f4ed] bg-[#f7f4ed] shadow-xl shadow-[#0d2a3a]/10">
           <iframe src={place.embedUrl} title="Map of Plaza Sotomayor in Valparaíso" class="h-[420px] w-full border-0 lg:h-[480px]" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
@@ -133,5 +136,6 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
       </nav>
     </article>
   </main>
+  <PhotoCredits lang="en" />
   <SiteFooter lang="en" />
 </BaseLayout>

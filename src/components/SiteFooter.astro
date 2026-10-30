@@ -9,30 +9,30 @@ const { lang = 'es' } = Astro.props;
 const copy = lang === 'en'
   ? {
       tagline: 'Valparaíso · Región de Valparaíso · Chile',
-      blurb: 'An independent guide to know the port heart of Valparaíso.',
+      blurb: 'An independent, non-profit guide for tourism information and heritage education about Valparaíso.',
       privacy: { summary: 'Privacy', text: 'This site does not request accounts or personal data. Google Analytics 4 loads only if you accept analytics cookies.' },
-      cookies: { summary: 'Cookies', text: 'The analytics preference is stored locally in your browser. Rejecting it keeps analytics storage denied.' },
-      terms: { summary: 'Terms', text: 'Information is orientative. Confirm prices, hours, access and operating conditions with each provider or authority.' },
+      cookies: { summary: 'Cookies', text: 'The analytics choice applies only to this page. Use Analytics to change or withdraw it; navigation and reload start with denial. Google Maps connects to Google separately, and the host may inject independent Cloudflare performance measurement.' },
+      terms: { summary: 'Terms', text: 'This guide provides tourism information and heritage education without a profit-making purpose. Information is orientative. Confirm prices, hours, access and operating conditions with each provider or authority.' },
       linksTitle: 'Official & heritage links',
       maps: 'Google Maps · Plaza Sotomayor',
       tourism: 'Chile Travel · Valparaíso tourism',
       municipality: 'Municipalidad de Valparaíso',
       wikipedia: 'Wikipedia · Plaza Sotomayor',
-      disclaimer: 'Independent informational site; not the official site of Plaza Sotomayor, the Municipalidad de Valparaíso or the Armada de Chile.',
+      disclaimer: 'Independent, non-profit tourism and heritage information guide; not the official site of Plaza Sotomayor, the Municipalidad de Valparaíso or the Armada de Chile.',
       top: 'Back to top ↑'
     }
   : {
       tagline: 'Valparaíso · Región de Valparaíso · Chile',
-      blurb: 'Guía independiente para conocer el corazón portuario de Valparaíso.',
+      blurb: 'Guía independiente y sin fines de lucro, dedicada a la información turística y la divulgación patrimonial de Valparaíso.',
       privacy: { summary: 'Privacidad', text: 'Este sitio no solicita cuentas ni datos personales. Google Analytics 4 se carga únicamente si aceptas cookies analíticas.' },
-      cookies: { summary: 'Cookies', text: 'La preferencia de analítica se guarda localmente en tu navegador. Rechazarla mantiene el almacenamiento analítico denegado.' },
-      terms: { summary: 'Términos', text: 'La información es orientativa. Confirma precios, horarios, accesos y condiciones operativas con cada proveedor o autoridad correspondiente.' },
+      cookies: { summary: 'Cookies', text: 'La elección analítica solo se aplica a esta página. Analítica permite cambiarla o retirarla; navegar o recargar inicia con denegación. Google Maps conecta con Google por separado y el alojamiento puede incorporar medición independiente de Cloudflare.' },
+      terms: { summary: 'Términos', text: 'Esta guía tiene una finalidad de información turística y divulgación patrimonial sin fines de lucro. La información es orientativa. Confirma precios, horarios, accesos y condiciones operativas con cada proveedor o autoridad correspondiente.' },
       linksTitle: 'Enlaces oficiales y patrimoniales',
       maps: 'Google Maps · Plaza Sotomayor',
       tourism: 'Chile Travel · Turismo de Valparaíso',
       municipality: 'Municipalidad de Valparaíso',
       wikipedia: 'Wikipedia · Plaza Sotomayor',
-      disclaimer: 'Sitio informativo independiente; no es el sitio oficial de Plaza Sotomayor, la Municipalidad de Valparaíso ni la Armada de Chile.',
+      disclaimer: 'Guía de información turística y divulgación patrimonial, independiente y sin fines de lucro; no es el sitio oficial de Plaza Sotomayor, la Municipalidad de Valparaíso ni la Armada de Chile.',
       top: 'Volver arriba ↑'
     };
 ---
@@ -47,7 +47,7 @@ const copy = lang === 'en'
           <p class="port-label mt-2 text-[10px] text-[#dfc9a5]">{copy.tagline}</p>
           <address class="mt-3 not-italic text-sm leading-6 text-white/60">
             {place.fullName} — {place.address}<br />
-            Plus Code: {place.plusCode}
+
           </address>
           <p class="mt-2 text-sm text-white/55">{copy.blurb}</p>
         </div>

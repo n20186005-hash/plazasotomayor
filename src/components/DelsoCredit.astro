@@ -1,0 +1,8 @@
+---
+import { place } from '../data/place';
+const { lang = 'es' } = Astro.props;
+---
+<p class="mt-2 text-xs leading-6">
+  <a class="underline" href={place.photos[1].source}>Diego Delso</a>, <a class="underline" href="https://delso.photo/">delso.photo</a> · <a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> · 2007-01-03.
+  {lang === 'en' ? 'Denoising: Taxiarchos228. Display resized and cropped.' : 'Reducción de ruido: Taxiarchos228. Presentación redimensionada y recortada.'}
+</p>

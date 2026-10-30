@@ -7,14 +7,14 @@ const copy = lang === 'en'
   ? {
       label: 'Cookie preferences',
       title: 'Optional analytics',
-      text: 'We use GA4 only with your consent to understand general site usage. You don\'t need to accept to browse.',
+      text: 'GA4 is off until you accept on this page. You can withdraw from Analytics. The choice lasts only on this page; navigation or reload asks again.',
       reject: 'Reject',
       accept: 'Accept'
     }
   : {
       label: 'Preferencias de cookies',
       title: 'Analítica opcional',
-      text: 'Usamos GA4 solo con tu consentimiento para entender el uso general del sitio. No necesitas aceptar para navegar.',
+      text: 'GA4 permanece apagado hasta aceptar en esta página. Puedes retirarlo desde Analítica. La elección solo dura en esta página; al navegar o recargar se vuelve a preguntar.',
       reject: 'Rechazar',
       accept: 'Aceptar'
     };
@@ -32,3 +32,5 @@ const copy = lang === 'en'
     </div>
   </div>
 </aside>
+
+<button data-cookie-open type="button" class="fixed bottom-3 left-3 z-40 rounded-full bg-[#0d2a3a] px-4 py-2 text-sm text-white shadow" hidden>{lang === 'en' ? 'Analytics' : 'Analítica'}</button>

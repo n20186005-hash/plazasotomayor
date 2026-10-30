@@ -30,33 +30,32 @@ export const place = {
   region: 'Región de Valparaíso',
   country: 'Chile',
   countryCode: 'CL',
-  postalCode: '2340000',
   address: 'Sotomayor, Valparaíso, Chile',
-  plusCode: 'X96C+HF Valparaíso, Chile',
-  latitude: -33.038443,
-  longitude: -71.628552,
+  latitude: -33.0385622,
+  longitude: -71.6287555,
   heroImage: '/images/plaza-sotomayor-panorama.jpg',
   govtTourismUrl: 'https://chile.travel/atractivos/plaza-sotomayor/',
-  municipalityUrl: 'https://www.valparaiso.cl/',
+  municipalityUrl: 'https://municipalidaddevalparaiso.cl/',
   wikipediaUrl: 'https://es.wikipedia.org/wiki/Plaza_Sotomayor',
   rating: 4.5,
-  reviewCount: 19314,
-  access: 'Espacio público de acceso continuo',
-  admission: 'Acceso gratuito a la plaza y al monumento exterior. Paseos en lancha, museos y otros servicios del entorno se pagan por separado.',
+  checkedDate: '2026-10-29',
+  reviewCount: 19359,
+  access: 'Maps muestra 24 horas; no garantiza acceso durante obras o actos',
+  admission: 'La plaza es un espacio público; no se ha encontrado una entrada general para recorrer su exterior. Los anuncios de tours no son una tarifa de acceso a la plaza. Cripta, paseos y museos tienen condiciones separadas.',
   recommendedStay: '45–90 min para la plaza y el frente portuario; 2–3 h si sumas Muelle Prat y un paseo por los cerros.',
-  bestTime: 'Mañana para recorrer con calma o última parte de la tarde para combinar la plaza con la luz sobre la bahía. Entre primavera y comienzos de otoño suele haber condiciones más amables para caminar al aire libre.',
+  bestTime: 'Mañana para recorrer con calma o última parte de la tarde para combinar la plaza con la luz sobre la bahía. Comprueba el tiempo y los accesos por obras antes de salir.',
   mapsUrl: 'https://maps.app.goo.gl/1MuemWaALd55TzfKA',
   embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5944.64625949658!2d-71.6313304225405!3d-33.038557676539774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689e0dbcb0f4a43%3A0x581ceec022d3e9ea!2z57Si5omY6ams57qm5bCU5bm_5Zy6!5e1!3m2!1ses!2scl!4v1789008907836!5m2!1ses!2scl&hl=es-CL',
   nearby: [
     {
       name: 'Muelle Prat',
       type: 'Borde costero',
-      detail: 'La prolongación natural de la visita: embarcaciones de paseo, vistas del puerto y ambiente marítimo.'
+      detail: 'Borde portuario frente a la plaza; comprueba los accesos por obras y consulta por separado cualquier paseo en lancha.'
     },
     {
       name: 'Ascensor El Peral',
       type: 'Ascensor patrimonial',
-      detail: 'Conecta el plan con el sector de Paseo Yugoslavo y facilita subir hacia los cerros históricos.'
+      detail: 'Vincula el plan con Paseo Yugoslavo; comprueba su operación actual antes de depender de este ascensor.'
     },
     {
       name: 'Paseo Yugoslavo',
@@ -69,29 +68,10 @@ export const place = {
       detail: 'Calles, comercio tradicional y patrimonio portuario para seguir caminando desde la plaza.'
     }
   ] satisfies NearbyPlace[],
-  food: [
-    {
-      name: 'Melbourne Café',
-      kind: 'Café · desayuno · brunch',
-      address: 'Sotomayor 33',
-      note: 'Una parada práctica frente a la plaza para café, paninis y algo dulce.'
-    },
-    {
-      name: 'PaniniCafe Sotomayor',
-      kind: 'Café · paninis',
-      address: 'Sotomayor 55',
-      note: 'Opción rápida para desayuno, almuerzo liviano o una pausa durante el recorrido.'
-    },
-    {
-      name: 'Puerto Rolls',
-      kind: 'Sushi · bar',
-      address: 'Cochrane / Sotomayor 558',
-      note: 'Alternativa informal a pasos del Barrio Puerto para almuerzo o cena.'
-    }
-  ] satisfies FoodPlace[],
+  food: [] satisfies FoodPlace[],
   photos: [
     {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Plaza_Sotomayor%2C_Valpara%C3%ADso.jpg/1280px-Plaza_Sotomayor%2C_Valpara%C3%ADso.jpg',
+      src: '/images/plaza-sotomayor-panorama.jpg',
       alt: 'Plaza Sotomayor: vista principal en Valparaíso, Chile, con el monumento y los edificios patrimoniales',
       caption: 'La plaza como antesala del puerto.',
       author: 'Rjcastillo',
@@ -99,7 +79,7 @@ export const place = {
       source: 'https://commons.wikimedia.org/wiki/File:Plaza_Sotomayor,_Valpara%C3%ADso.jpg'
     },
     {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Monumento_a_los_h%C3%A9roes_de_Iquique%2C_Valpara%C3%ADso%2C_Chile1.jpg/1280px-Monumento_a_los_h%C3%A9roes_de_Iquique%2C_Valpara%C3%ADso%2C_Chile1.jpg',
+      src: '/images/monumento-heroes-iquique.jpg',
       alt: 'Monumento a los Héroes de Iquique en Plaza Sotomayor',
       caption: 'El Monumento a los Héroes de Iquique, hito central del espacio cívico.',
       author: 'Diego Delso',
@@ -107,7 +87,7 @@ export const place = {
       source: 'https://commons.wikimedia.org/wiki/File:Monumento_a_los_h%C3%A9roes_de_Iquique,_Valpara%C3%ADso,_Chile1.jpg'
     },
     {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Edificio_Armada_de_Chile_en_Valpara%C3%ADso.JPG',
+      src: '/images/edificio-armada.jpg',
       alt: 'Edificio de la Armada de Chile frente a Plaza Sotomayor',
       caption: 'La antigua Intendencia, hoy sede naval, define el remate monumental de la plaza.',
       author: 'KenPugh',
@@ -115,7 +95,7 @@ export const place = {
       source: 'https://commons.wikimedia.org/wiki/File:Edificio_Armada_de_Chile_en_Valpara%C3%ADso.JPG'
     },
     {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Muelle_Prat%2C_Valpara%C3%ADso.jpg/960px-Muelle_Prat%2C_Valpara%C3%ADso.jpg',
+      src: '/images/muelle-prat.jpg',
       alt: 'Muelle Prat y embarcaciones en el puerto de Valparaíso',
       caption: 'Muelle Prat mantiene la plaza conectada visual y físicamente con la bahía.',
       author: 'Techicortes',
@@ -128,7 +108,7 @@ export const place = {
 export const faq = [
   {
     question: '¿La entrada a Plaza Sotomayor es gratuita?',
-    answer: 'Sí. La plaza es un espacio público y recorrer el exterior del Monumento a los Héroes de Iquique no requiere entrada. Actividades del entorno, como paseos en lancha o museos, pueden tener tarifas propias.'
+    answer: 'La plaza es un espacio público; no se ha encontrado una entrada general para recorrer su exterior. Los precios de tours anunciados no son entradas a la plaza. La cripta, los museos y los paseos tienen condiciones propias; revisa también las restricciones por obras.'
   },
   {
     question: '¿Cuánto tiempo conviene reservar?',
@@ -140,7 +120,7 @@ export const faq = [
   },
   {
     question: '¿Hay estacionamiento cerca?',
-    answer: 'Sí. En el sector Puerto existen estacionamientos privados y estacionamientos asociados a edificios cercanos. Como las condiciones, tarifas y cupos cambian, conviene revisar disponibilidad al llegar y priorizar transporte público en días de alta concurrencia.'
+    answer: 'No se ha verificado un estacionamiento concreto ni sus tarifas o cupos. Consulta al operador y revisa las restricciones por obras antes de conducir hacia el sector.'
   },
   {
     question: '¿Qué más se puede visitar caminando desde la plaza?',
@@ -152,7 +132,7 @@ export const faq = [
   },
   {
     question: '¿Cuáles son otras plazas o plazas cercanas en Valparaíso?',
-    answer: 'Valparaíso tiene varias plazas patrimoniales. Además de Plaza Sotomayor en el plan del Barrio Puerto, destacan la Plaza de la Victoria, la Plaza Aníbal Pinto y la Plaza O´Higgins en los cerros. Plaza Sotomayor es la principal por su frente portuario y el Monumento a los Héroes de Iquique.'
+    answer: 'Valparaíso tiene varias plazas patrimoniales. Además de Plaza Sotomayor en el plan del Barrio Puerto, destacan la Plaza de la Victoria, la Plaza Aníbal Pinto y la Plaza O´Higgins en otros sectores de la ciudad. Cada una corresponde a un lugar distinto; esta guía se centra en Sotomayor y su frente portuario.'
   },
   {
     question: '¿Dónde queda Calle Sotomayor y qué hay cerca?',
@@ -167,6 +147,7 @@ export type Source = {
 };
 
 export const sources = [
+  { label: 'Municipalidad de Valparaíso — obras anunciadas', href: 'https://municipalidaddevalparaiso.cl/que-pasara-con-plaza-sotomayor-obras-de-renovacion-comenzaran-en-noviembre/', note: 'Anuncio de 19 de octubre de 2026: primera etapa prevista desde el 1 de noviembre, 150 días; cierres acotados de bandejones centrales y sin nuevos cortes vehiculares en noviembre y diciembre. Consulta revisada el 29 de octubre de 2026.' },
   {
     label: 'Consejo de Monumentos Nacionales — Plaza Sotomayor',
     href: 'https://www.monumentos.gob.cl/monumentos/zonas-tipicas/plaza-sotomayor-de-valparaiso-incluye-los-edificios-que-la-encierran',

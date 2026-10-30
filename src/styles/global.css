@@ -86,3 +86,24 @@ summary:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+
+/* Keep the image and its full attribution in separate intrinsic-height rows. */
+.credited-photo {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  min-width: 0;
+  height: auto;
+}
+.credited-photo > img {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: auto;
+}
+.credited-photo > figcaption {
+  position: relative;
+  flex: none;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

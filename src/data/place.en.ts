@@ -19,12 +19,12 @@ export const nearbyEn: NearbyPlaceEn[] = [
   {
     name: 'Muelle Prat',
     type: 'Waterfront',
-    detail: 'The natural continuation of the visit: boat tours, harbor views and the maritime atmosphere of Valparaíso.'
+    detail: 'Waterfront opposite the square; check construction access and enquire separately about any boat trip.'
   },
   {
     name: 'Ascensor El Peral',
     type: 'Heritage funicular',
-    detail: 'Connects the flat city (plan) with the Paseo Yugoslavo sector and makes it easy to climb toward the historic hills.'
+    detail: 'Links the flat city with Paseo Yugoslavo; check current operation before relying on this funicular.'
   },
   {
     name: 'Paseo Yugoslavo',
@@ -38,31 +38,12 @@ export const nearbyEn: NearbyPlaceEn[] = [
   }
 ];
 
-export const foodEn: FoodPlaceEn[] = [
-  {
-    name: 'Melbourne Café',
-    kind: 'Café · breakfast · brunch',
-    address: 'Sotomayor 33',
-    note: 'A practical stop facing the plaza for coffee, paninis and something sweet.'
-  },
-  {
-    name: 'PaniniCafe Sotomayor',
-    kind: 'Café · paninis',
-    address: 'Sotomayor 55',
-    note: 'A quick option for breakfast, a light lunch or a break during the walk.'
-  },
-  {
-    name: 'Puerto Rolls',
-    kind: 'Sushi · bar',
-    address: 'Cochrane / Sotomayor 558',
-    note: 'An informal alternative a few steps from Barrio Puerto for lunch or dinner.'
-  }
-];
+export const foodEn: FoodPlaceEn[] = [];
 
 export const faqEn = [
   {
     question: 'Is entry to Plaza Sotomayor free?',
-    answer: 'Yes. The plaza is a public space and visiting the exterior of the Monumento a los Héroes de Iquique does not require a ticket. Activities around it, such as boat tours or museums, may have their own fees.'
+    answer: 'The plaza is a public space; no general admission ticket for its exterior has been found. Advertised tour prices are not square admission charges. Crypt visits, museums and boat trips have separate conditions; also check construction restrictions.'
   },
   {
     question: 'How much time should I plan for?',
@@ -74,7 +55,7 @@ export const faqEn = [
   },
   {
     question: 'Is there parking nearby?',
-    answer: 'Yes. The Puerto sector has private parking lots and spaces associated with nearby buildings. Since conditions, rates and availability change, it is best to check on arrival and prefer public transport on busy days.'
+    answer: 'No specific parking operator, price or available spaces have been verified. Check directly with an operator and review construction restrictions before driving to the area.'
   },
   {
     question: 'What else can I visit on foot from the plaza?',
@@ -86,7 +67,7 @@ export const faqEn = [
   },
   {
     question: 'What other plazas or nearby plazas are there in Valparaíso?',
-    answer: 'Valparaíso has several heritage plazas. Besides Plaza Sotomayor on the plan of Barrio Puerto, the Plaza de la Victoria, Plaza Aníbal Pinto and Plaza O´Higgins stand out in the hills. Plaza Sotomayor is the main one thanks to its waterfront setting and the Monumento a los Héroes de Iquique.'
+    answer: 'Valparaíso has several heritage plazas. Besides Plaza Sotomayor on the plan of Barrio Puerto, Plaza de la Victoria, Plaza Aníbal Pinto and Plaza O´Higgins are separate places elsewhere in the city. This guide focuses on Sotomayor and its waterfront.'
   },
   {
     question: 'Where is Calle Sotomayor and what is around it?',

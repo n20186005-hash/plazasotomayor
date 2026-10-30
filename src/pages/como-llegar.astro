@@ -1,4 +1,6 @@
 ---
+import VisitNotice from '../components/VisitNotice.astro';
+import PhotoCredits from '../components/PhotoCredits.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SubpageNav from '../components/SubpageNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -31,7 +33,7 @@ const faq = [
   },
   {
     question: '¿Cómo bajar desde los cerros al nivel de la plaza?',
-    answer: 'Desde los cerros Alegre y Concepción puedes usar ascensores como el Ascensor El Peral o el Ascensor Concepción y continuar a pie por el Barrio Puerto hasta Plaza Sotomayor. El descenso al nivel del plan es corto y forma parte del recorrido patrimonial.'
+    answer: 'Desde los cerros Alegre y Concepción puedes usar ascensores como el Ascensor El Peral o el Ascensor Concepción y continuar a pie por el Barrio Puerto hasta Plaza Sotomayor. Consulta el funcionamiento vigente de cada ascensor; no se garantiza servicio ni una ruta sin escalones.'
   }
 ];
 
@@ -82,6 +84,7 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
         <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">La plaza está en el plan de Valparaíso, frente a Muelle Prat. Aquí tienes las opciones para llegar en transporte público, en auto o desde Santiago.</p>
       </div>
     </section>
+    <VisitNotice lang="es" />
 
     <article class="mx-auto max-w-3xl px-5 py-16 lg:px-8 lg:py-24">
       <section class="scroll-mt-24">
@@ -97,13 +100,13 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">En auto y estacionamiento</h2>
-        <p class="mt-5 leading-8 text-slate-700">Hay estacionamientos privados en el entorno de Errázuriz y Estación Puerto, además de oferta en el sector céntrico. Las tarifas, el acceso y los cupos pueden variar; en fines de semana, eventos o ceremonias conviene considerar transporte público.</p>
+        <p class="mt-5 leading-8 text-slate-700">No se ha verificado un estacionamiento concreto, su precio ni cupos. Consulta directamente y revisa los accesos por obras antes de conducir.</p>
         <p class="mt-4 leading-8 text-slate-700">Si tu plan incluye cerros, ascensores y miradores, dejar el auto y continuar a pie suele simplificar el recorrido. Valparaíso tiene pendientes fuertes: calzado cómodo hace una diferencia real.</p>
       </section>
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Mapa y ubicación</h2>
-        <p class="mt-5 leading-8 text-slate-700"><strong class="text-[#0d2a3a]">{place.address}</strong> · Plus Code: {place.plusCode}.</p>
+        <p class="mt-5 leading-8 text-slate-700"><strong class="text-[#0d2a3a]">{place.address}</strong>.</p>
         <div class="mt-6 overflow-hidden rounded-[1.8rem] border-8 border-[#f7f4ed] bg-[#f7f4ed] shadow-xl shadow-[#0d2a3a]/10">
           <iframe src={place.embedUrl} title="Mapa de Plaza Sotomayor en Valparaíso" class="h-[420px] w-full border-0 lg:h-[480px]" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
@@ -133,5 +136,6 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
       </nav>
     </article>
   </main>
+  <PhotoCredits lang="es" />
   <SiteFooter lang="es" />
 </BaseLayout>

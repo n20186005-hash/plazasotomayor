@@ -1,4 +1,7 @@
 ---
+import VisitNotice from '../components/VisitNotice.astro';
+import PhotoCredits from '../components/PhotoCredits.astro';
+import DelsoCredit from '../components/DelsoCredit.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SubpageNav from '../components/SubpageNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -81,7 +84,9 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
         <h1 class="serif-display max-w-4xl text-4xl font-black leading-[.95] sm:text-6xl">Historia de Plaza Sotomayor</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">Desde su origen como plaza portuaria hasta su papel como escenario cívico y patrimonial de Valparaíso, la plaza reúne memoria naval, arquitectura monumental y vida cotidiana frente a la bahía.</p>
       </div>
-    </section>
+    <div class="relative mx-auto max-w-7xl px-5 pb-6 lg:px-8"><DelsoCredit lang="es" /></div>
+</section>
+    <VisitNotice lang="es" />
 
     <article class="mx-auto max-w-3xl px-5 py-16 lg:px-8 lg:py-24">
       <section class="scroll-mt-24">
@@ -92,12 +97,13 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">El Monumento a los Héroes de Iquique</h2>
-        <figure class="photo-grain mt-6 overflow-hidden rounded-[1.8rem] bg-[#d9c9ad]">
+        <figure class="photo-grain credited-photo mt-6 overflow-hidden rounded-[1.8rem] bg-[#d9c9ad]">
           <img src={place.photos[1].src} alt={place.photos[1].alt} loading="lazy" class="aspect-[4/3] w-full object-cover" />
-          <figcaption class="bg-[#0d2a3a] p-4 text-xs text-white/75">{place.photos[1].caption} — {place.photos[1].author} · {place.photos[1].license}</figcaption>
+          <figcaption class="bg-[#0d2a3a] p-4 text-xs text-white/75">{place.photos[1].caption}<DelsoCredit lang="es" /></figcaption>
         </figure>
         <p class="mt-5 leading-8 text-slate-700">En 1886 se inauguró en el centro de la plaza el <strong class="text-[#0d2a3a]">Monumento a los Héroes de Iquique</strong>, erigido para honrar a los marinos caídos en los combates navales de Iquique y Punta Gruesa. Con los años se convirtió en el hito urbano más reconocible de Valparaíso y en punto de ceremonias institucionales. Bajo el conjunto se encuentra una cripta vinculada a esa memoria.</p>
-      </section>
+      <p class="mt-4 text-sm leading-7 text-slate-600">Chile Travel coloca “1879” junto al nombre del monumento; el Consejo de Monumentos Nacionales fecha su erección en 1886. Esta guía usa 1886 para el monumento y no toma el paréntesis turístico como fecha de inauguración. <a class="underline" href="https://www.monumentos.gob.cl/monumentos/zonas-tipicas/plaza-sotomayor-de-valparaiso-incluye-los-edificios-que-la-encierran">CMN</a> · <a class="underline" href="https://chile.travel/atractivos/plaza-sotomayor/">Chile Travel</a></p>
+</section>
 
       <section class="mt-12 scroll-mt-24">
         <h2 class="serif-display text-3xl font-bold text-[#0d2a3a] sm:text-4xl">Reconocimiento patrimonial</h2>
@@ -126,5 +132,6 @@ const structuredData = [attractionSchema, faqSchema, ...(breadcrumbSchema ? [bre
       </nav>
     </article>
   </main>
+  <PhotoCredits lang="es" />
   <SiteFooter lang="es" />
 </BaseLayout>

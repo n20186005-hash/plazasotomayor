@@ -1,6 +1,6 @@
 # Plaza Sotomayor — sitio turístico independiente
 
-Sitio de una página en español de Chile, construido con Astro, Tailwind CSS y TypeScript, preparado para Cloudflare Workers.
+Guía en español de Chile e inglés, con páginas de visita, historia y acceso, construido con Astro, Tailwind CSS y TypeScript, preparado para Cloudflare Workers.
 
 ## Versiones fijadas
 
@@ -55,7 +55,7 @@ SITE=https://tu-dominio.cl pnpm deploy
 
 ## Imágenes y licencias
 
-La interfaz, logo, favicon, iconos PWA y la imagen Open Graph son locales. Las fotografías de contenido están referenciadas desde Wikimedia Commons con sus atribuciones CC visibles en la página. La página y el pie muestran un aviso de derechos: todas las imágenes pertenecen a sus fotógrafos originales. Si se requiere un paquete 100 % offline, descargue los cuatro archivos indicados en `PHOTO-ASSETS.md`, colóquelos en `public/images/` y sustituya los `src` en `src/data/place.ts`.
+La interfaz, los iconos y las fotografías se sirven localmente. Las fotografías históricas conservan autor, fuente, fecha y enlace de licencia en ambas lenguas; sus encuadres no representan las condiciones actuales de obras.
 
 ## GA4 y cookies
 

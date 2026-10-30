@@ -1,11 +1,14 @@
 ---
+import VisitNotice from '../../components/VisitNotice.astro';
+import PhotoCredits from '../../components/PhotoCredits.astro';
+import DelsoCredit from '../../components/DelsoCredit.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import SourcesSection from '../../components/SourcesSection.astro';
 import { buildAlternates } from '../../i18n';
 import { breadcrumb, place } from '../../data/place';
-import { faqEn, foodEn, nearbyEn } from '../../data/place.en';
+import { faqEn, nearbyEn } from '../../data/place.en';
 
 const title = 'Plaza Sotomayor, Valparaíso: visitor guide, history & how to get there';
 const description = 'Guide to Plaza Sotomayor in Valparaíso, Chile: its history, the Monumento a los Héroes de Iquique, how to get there, map and location, what to do nearby (Muelle Prat, Ascensor El Peral) and practical tips for your visit.';
@@ -29,7 +32,6 @@ const attractionSchema = {
     streetAddress: 'Plaza Sotomayor',
     addressLocality: place.city,
     addressRegion: place.region,
-    postalCode: place.postalCode,
     addressCountry: place.countryCode
   },
   geo: {
@@ -51,24 +53,7 @@ const attractionSchema = {
     }
   },
   touristType: ['Cultural tourism', 'Heritage tourism', 'City tourism'],
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '00:00',
-      closes: '23:59'
-    }
-  ],
-  isAccessibleForFree: true,
-  publicAccess: true,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: place.rating,
-    reviewCount: place.reviewCount,
-    bestRating: 5,
-    worstRating: 1
-  },
-  sameAs: [place.mapsUrl, place.govtTourismUrl, place.wikipediaUrl, place.municipalityUrl]
+  sameAs: [place.mapsUrl, place.govtTourismUrl, place.wikipediaUrl]
 };
 
 const webSiteSchema = {
@@ -155,7 +140,7 @@ const structuredData = [
   <main>
     <section id="inicio" class="relative min-h-[92svh] overflow-hidden bg-[#0d2a3a] text-white">
       <div class="absolute inset-0">
-        <img src={place.photos[0].src} alt={place.photos[0].alt} class="h-full w-full object-cover opacity-55" fetchpriority="high" />
+        <img src={place.photos[0].src} alt={'Historic panorama of Plaza Sotomayor in Valparaíso'} class="h-full w-full object-cover opacity-55" fetchpriority="high" />
         <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,24,34,.92)_0%,rgba(8,31,43,.64)_47%,rgba(8,31,43,.18)_100%)]"></div>
         <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0d2a3a] to-transparent"></div>
       </div>
@@ -163,7 +148,7 @@ const structuredData = [
         <div class="max-w-4xl">
           <div class="mb-7 flex flex-wrap items-center gap-3 text-sm">
             <span class="port-label rounded-full border border-white/30 bg-white/10 px-3 py-2 backdrop-blur">Civic center · Barrio Puerto</span>
-            <span class="rounded-full bg-[#f4f0e8] px-3 py-2 font-extrabold text-[#0d2a3a]">★ {place.rating} · {place.reviewCount.toLocaleString('en-US')} reviews</span>
+            <span class="rounded-full bg-[#f4f0e8] px-3 py-2 font-extrabold text-[#0d2a3a]">★ {place.rating} · {place.reviewCount.toLocaleString('en-US')} reviews · Maps 29 Oct 2026</span>
           </div>
           <p class="port-label mb-4 text-[#dfc9a5]">Between the monument and the sea</p>
           <h1 class="serif-display max-w-4xl text-5xl font-black tracking-[-.04em] sm:text-7xl lg:text-[6.6rem] lg:leading-[.88]">
@@ -182,6 +167,7 @@ const structuredData = [
         <span class="port-label">Coordinates</span><br />{place.latitude}, {place.longitude}
       </div>
     </section>
+    <VisitNotice lang="en" />
 
     <section id="acerca" class="scroll-mt-24 bg-[#0d2a3a] pb-20 text-white lg:pb-28">
       <div class="mx-auto grid max-w-7xl gap-12 px-5 pt-16 lg:grid-cols-[.85fr_1.15fr] lg:px-8 lg:pt-20">
@@ -242,19 +228,19 @@ const structuredData = [
         <p class="hidden max-w-sm text-sm leading-6 text-slate-600 md:block">Real photographs with visible attribution. Surrounding schedules and conditions may change.</p>
       </div>
       <div class="grid gap-5 md:grid-cols-12">
-        <figure class="photo-grain overflow-hidden rounded-[2rem] bg-[#d9c9ad] md:col-span-7">
-          <img src={place.photos[1].src} alt={place.photos[1].alt} loading="lazy" class="aspect-[4/3] h-full max-h-[620px] w-full object-cover" />
-          <figcaption class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/75 to-transparent p-6 pt-16 text-sm text-white">
-            <strong class="block text-base">{place.photos[1].caption}</strong>
-            <a href={place.photos[1].source} target="_blank" rel="noopener noreferrer" class="mt-1 inline-block text-white/75 underline decoration-white/30 underline-offset-4">{place.photos[1].author} · {place.photos[1].license}</a>
+        <figure class="photo-grain credited-photo overflow-hidden rounded-[2rem] bg-[#d9c9ad] md:col-span-7">
+          <img src={place.photos[1].src} alt={'Monumento a los Héroes de Iquique in Plaza Sotomayor'} loading="lazy" class="aspect-[4/3] max-h-[620px] w-full object-cover" />
+          <figcaption class="bg-[#0d2a3a] p-6 text-sm text-white">
+            <strong class="block text-base">{'Monumento a los Héroes de Iquique in Plaza Sotomayor'}</strong>
+            <DelsoCredit lang="en" />
           </figcaption>
         </figure>
         <div class="grid gap-5 md:col-span-5">
-          {place.photos.slice(2).map((photo) => (
+          {place.photos.slice(2).map((photo, index) => (
             <figure class="photo-grain relative overflow-hidden rounded-[2rem] bg-[#d9c9ad]">
-              <img src={photo.src} alt={photo.alt} loading="lazy" class="aspect-[16/10] w-full object-cover" />
+              <img src={photo.src} alt={index === 0 ? 'Former Intendencia building facing Plaza Sotomayor' : 'Muelle Prat and boats in Valparaíso harbour'} loading="lazy" class="aspect-[16/10] w-full object-cover" />
               <figcaption class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 to-transparent p-5 pt-12 text-xs text-white">
-                <strong class="block text-sm">{photo.caption}</strong>
+                <strong class="block text-sm">{index === 0 ? 'Former Intendencia building facing Plaza Sotomayor' : 'Muelle Prat and boats in Valparaíso harbour'}</strong>
                 <a href={photo.source} target="_blank" rel="noopener noreferrer" class="mt-1 inline-block text-white/75 underline decoration-white/30 underline-offset-4">{photo.author} · {photo.license}</a>
               </figcaption>
             </figure>
@@ -274,23 +260,23 @@ const structuredData = [
           <div class="grid gap-4 sm:grid-cols-2">
             <article class="rounded-[1.7rem] bg-[#f7f4ed] p-6 shadow-sm">
               <span class="port-label text-[#1f6d79]">Entry / cost</span>
-              <h3 class="mt-3 text-xl font-extrabold text-[#0d2a3a]">Plaza: free</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-700">{place.admission}</p>
+              <h3 class="mt-3 text-xl font-extrabold text-[#0d2a3a]">Plaza: public space</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-700">{'The square is public space; no general exterior admission ticket was found. Advertised tours, crypt visits, museums and boat trips have separate conditions.'}</p>
             </article>
             <article class="rounded-[1.7rem] bg-[#0d2a3a] p-6 text-white shadow-sm">
               <span class="port-label text-[#dfc9a5]">Hours</span>
-              <h3 class="mt-3 text-xl font-extrabold">Continuous access</h3>
-              <p class="mt-3 text-sm leading-6 text-white/75">It is an open public space. Museums, shops and bay tours keep their own hours.</p>
+              <h3 class="mt-3 text-xl font-extrabold">Access conditions</h3>
+              <p class="mt-3 text-sm leading-6 text-white/75">Maps displayed 24 hours on 29 October 2026. Works, ceremonies and interior venues may restrict access.</p>
             </article>
             <article class="rounded-[1.7rem] bg-[#f7f4ed] p-6 shadow-sm">
               <span class="port-label text-[#1f6d79]">Best time</span>
               <h3 class="mt-3 text-xl font-extrabold text-[#0d2a3a]">Morning or afternoon</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-700">{place.bestTime}</p>
+              <p class="mt-3 text-sm leading-6 text-slate-700">{'Morning or late afternoon can suit a walking visit. Check the weather and construction access before leaving.'}</p>
             </article>
             <article class="rounded-[1.7rem] bg-[#a94c35] p-6 text-white shadow-sm">
               <span class="port-label text-white/70">Suggested time</span>
               <h3 class="mt-3 text-xl font-extrabold">45–90 min</h3>
-              <p class="mt-3 text-sm leading-6 text-white/80">{place.recommendedStay}</p>
+              <p class="mt-3 text-sm leading-6 text-white/80">{'Allow roughly 45–90 minutes for an exterior visit as a planning suggestion; add time for separate waterfront or hill visits.'}</p>
             </article>
           </div>
         </div>
@@ -334,7 +320,7 @@ const structuredData = [
             </div>
             <span class="rounded-full bg-[#e5dbc8] px-3 py-1.5 text-xs font-bold text-[#0d2a3a]">Puerto sector</span>
           </div>
-          <p class="mt-6 leading-7 text-slate-700">There are private parking lots around Errázuriz and Estación Puerto, plus offer in the central sector. Rates, access and spaces may vary; on weekends, events or ceremonies, public transport is worth considering.</p>
+          <p class="mt-6 leading-7 text-slate-700">No specific parking operator, tariff or space availability has been verified. Check directly before driving, particularly during the announced works.</p>
           <div class="mt-8 border-t border-slate-200 pt-6">
             <h3 class="font-extrabold text-[#0d2a3a]">Port tip</h3>
             <p class="mt-2 text-sm leading-6 text-slate-600">If your plan includes hills, funiculars and viewpoints, leaving the car and continuing on foot usually simplifies the route. Valparaíso has steep slopes: comfortable footwear makes a real difference.</p>
@@ -368,25 +354,7 @@ const structuredData = [
       </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-      <div class="mb-10 grid gap-5 md:grid-cols-2 md:items-end">
-        <div>
-          <p class="port-label mb-3 text-[#a94c35]">06 · A bite nearby</p>
-          <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">A pause in Barrio Puerto.</h2>
-        </div>
-        <p class="max-w-lg text-sm leading-6 text-slate-600 md:justify-self-end">Orientative selection of spots in the immediate surroundings. Offer, menu and hours may change: confirm before going if you seek a specific service.</p>
-      </div>
-      <div class="grid gap-4 md:grid-cols-3">
-        {foodEn.map((item) => (
-          <article class="rounded-[1.7rem] border border-[#0d2a3a]/10 bg-white p-6 shadow-sm">
-            <p class="port-label text-[10px] text-[#1f6d79]">{item.kind}</p>
-            <h3 class="mt-4 text-2xl font-extrabold text-[#0d2a3a]">{item.name}</h3>
-            <p class="mt-1 text-sm font-semibold text-[#a94c35]">{item.address}</p>
-            <p class="mt-5 text-sm leading-6 text-slate-600">{item.note}</p>
-          </article>
-        ))}
-      </div>
-    </section>
+    <section class="mx-auto max-w-7xl px-5 py-12"><h2 class="serif-display text-3xl">Eating around Barrio Puerto</h2><p class="mt-4">Check each business directly for its current address, menu and hours. No individual restaurant has been verified for this guide.</p></section>
 
     <section id="mapa" class="scroll-mt-24 bg-[#d9c9ad] py-20 lg:py-28">
       <div class="mx-auto max-w-7xl px-5 lg:px-8">
@@ -396,7 +364,7 @@ const structuredData = [
             <h2 class="serif-display text-4xl font-bold text-[#0d2a3a] sm:text-5xl">Map of Plaza Sotomayor: facing the bay.</h2>
           </div>
           <div class="text-sm leading-6 text-slate-700 md:text-right">
-            <strong>{place.address}</strong><br />Plus Code: {place.plusCode}
+            <strong>{place.address}</strong><br />
           </div>
         </div>
         <div class="overflow-hidden rounded-[2rem] border-8 border-[#f7f4ed] bg-[#f7f4ed] shadow-xl shadow-[#0d2a3a]/10">
@@ -433,5 +401,6 @@ const structuredData = [
     <SourcesSection lang="en" />
   </main>
 
+  <PhotoCredits lang="en" />
   <SiteFooter lang="en" />
 </BaseLayout>

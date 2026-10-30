@@ -1,0 +1,14 @@
+---
+import { place } from '../data/place';
+const { lang = 'es' } = Astro.props;
+const en = lang === 'en';
+const titlesEn = ['Historic panorama of Plaza Sotomayor in Valparaíso', 'Monumento a los Héroes de Iquique in Plaza Sotomayor', 'Former Intendencia building facing Plaza Sotomayor', 'Muelle Prat and boats in Valparaíso harbour'];
+const dates = ['2022-04-16', '2007-01-03', '2012-09-23', '2021-10-23'];
+---
+<section class="mx-auto max-w-7xl px-5 py-10 text-sm leading-7">
+  <h2 class="text-xl font-bold">{en ? 'Photographs and licences' : 'Fotografías y licencias'}</h2>
+  <p>{en ? 'Historical photographs; they do not show current construction conditions. Displayed at different sizes and cropped in some frames.' : 'Fotografías históricas; no muestran el estado actual de las obras. Presentadas a distintos tamaños y recortadas en algunos encuadres.'}</p>
+  <ul class="mt-4 grid gap-3">
+    {place.photos.map((photo, i) => <li><a class="underline" href={photo.source}>{en ? titlesEn[i] : photo.alt}</a> — {photo.author}{i === 1 && <>, <a class="underline" href="https://delso.photo/">delso.photo</a>; {en ? 'denoising: Taxiarchos228' : 'reducción de ruido: Taxiarchos228'}</>} · {dates[i]} · <a class="underline" href={'https://creativecommons.org/licenses/by-sa/' + (photo.license.includes('4.0') ? '4.0' : '3.0') + '/'}>{photo.license}</a></li>)}
+  </ul>
+</section>

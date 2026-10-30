@@ -11,14 +11,14 @@ const altLabel = lang === 'en' ? 'Español' : 'English';
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0d2a3a]/95 backdrop-blur">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-    <a href={homeHref} class="inline-flex items-center gap-3 rounded-full" aria-label="Plaza Sotomayor, inicio">
+    <a href={homeHref} class="inline-flex items-center gap-3 rounded-full" aria-label={lang === 'en' ? 'Plaza Sotomayor, home' : 'Plaza Sotomayor, inicio'}>
       <img src="/images/logo.svg" alt="" width="34" height="34" />
       <span class="hidden sm:block">
         <strong class="block text-sm leading-none text-white">Plaza Sotomayor</strong>
         <span class="port-label mt-1 block text-[9px] text-[#dfc9a5]">Valparaíso · Chile</span>
       </span>
     </a>
-    <nav aria-label="Idioma" class="flex items-center gap-2">
+    <nav aria-label={lang === 'en' ? 'Language' : 'Idioma'} class="flex items-center gap-2">
       <a href={homeHref} class="rounded-full bg-white/90 px-4 py-2 text-sm font-bold text-[#0d2a3a] hover:bg-white">{homeLabel}</a>
       <a href={altHref} class="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/20">{altLabel}</a>
     </nav>

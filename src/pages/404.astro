@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+Astro.response.status = 404;
+---
+<BaseLayout title="Página no encontrada | Plaza Sotomayor" description="Esta página no existe. Vuelve a la guía de Plaza Sotomayor." noindex>
+  <main class="mx-auto max-w-3xl px-5 py-24"><h1 class="serif-display text-4xl">Página no encontrada</h1><p class="mt-6"><a class="underline" href="/">Guía de Plaza Sotomayor</a> · <a class="underline" href="/en/">English guide</a></p></main>
+</BaseLayout>

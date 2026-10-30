@@ -3,5 +3,6 @@
 # de cadena de suministro. Sin esta declaración, `CI=1 pnpm install
 # --frozen-lockfile` falla con ERR_PNPM_IGNORED_BUILDS.
 allowBuilds:
-  esbuild: true
-  workerd: true
+  esbuild@0.28.1: true
+  esbuild@0.28.2: true
+  workerd@1.20260908.1: true

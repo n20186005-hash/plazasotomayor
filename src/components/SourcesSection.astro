@@ -11,7 +11,7 @@ const copy = lang === 'en'
       kicker: '09 · Sources & credits',
       title: 'Orientation sources and attribution.',
       intro: 'This guide cross-checks information with heritage, tourism and institutional sources. Commercial details, fares and opening hours may change, so confirm them before your visit.',
-      nap: 'Place data (NAP)',
+      nap: 'Place and location',
       official: 'For official information and regional updates, visit the official Chile tourism portal / Valparaíso Region.',
       rights: 'Image rights.'
     }
@@ -19,7 +19,7 @@ const copy = lang === 'en'
       kicker: '09 · Fuentes y créditos',
       title: 'Fuentes de orientación y atribución.',
       intro: 'Esta guía contrasta la información con fuentes patrimoniales, turísticas e institucionales. Los datos comerciales, tarifas y horarios de operación pueden cambiar y conviene confirmarlos antes de la visita.',
-      nap: 'Datos del lugar (NAP)',
+      nap: 'Lugar y ubicación',
       official: 'el portal oficial de turismo de Chile / Región de Valparaíso',
       rights: 'Derechos de imagen.'
     };
@@ -40,10 +40,10 @@ const copy = lang === 'en'
             <strong class="text-[#0d2a3a]">{place.fullName}</strong><br />
             {place.address}<br />
             {place.region}, {place.country}<br />
-            Plus Code: {place.plusCode}
+
           </address>
           <p class="mt-4 text-xs leading-5 text-slate-500">
-            Para información oficial y actualizaciones regionales, visita{' '}
+            {lang === 'en' ? 'Official tourism information: ' : 'Información turística oficial: '}
             <a href={place.govtTourismUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-[#a94c35] underline decoration-[#a94c35]/40 underline-offset-2">{copy.official}</a>.
           </p>
         </div>
@@ -59,7 +59,7 @@ const copy = lang === 'en'
                 class="block rounded-2xl border border-[#0d2a3a]/10 bg-white p-5 transition hover:-translate-y-0.5 hover:border-[#a94c35]/40"
               >
                 <span class="font-extrabold text-[#0d2a3a]">{source.label} ↗</span>
-                <span class="mt-1 block text-sm leading-6 text-slate-600">{source.note}</span>
+                <span class="mt-1 block text-sm leading-6 text-slate-600">{lang === 'en' ? (source.href.includes('municipalidad') ? 'Municipal construction announcement of 19 October 2026; checked 29 October 2026. Read the dated visit update above.' : source.href.includes('Maps') || source.href.includes('maps.app') ? 'Third-party location and rating snapshot, checked 29 October 2026.' : source.href.includes('commons') ? 'Image source and licence; individual photo credits are provided below.' : 'Heritage or visitor-information source. Check current operating conditions separately.') : source.note}</span>
               </a>
             </li>
           ))}

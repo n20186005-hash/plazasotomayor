@@ -11,6 +11,7 @@ interface Props {
   ogImageWidth?: number;
   ogImageHeight?: number;
   lang?: 'es' | 'en';
+  noindex?: boolean;
   hreflangAlternates?: { hreflang: string; href: string }[];
 }
 
@@ -23,7 +24,8 @@ const {
   ogImageWidth = 1280,
   ogImageHeight = 644,
   lang = 'es',
-  hreflangAlternates
+  hreflangAlternates,
+  noindex = false
 } = Astro.props;
 
 const htmlLang = lang === 'en' ? 'en' : 'es-CL';
@@ -46,7 +48,7 @@ const alternates = hreflangAlternates && hreflangAlternates.length ? hreflangAlt
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
     <meta name="theme-color" content="#0d2a3a" />
     <meta name="color-scheme" content="light" />
     <meta name="author" content="Guía independiente de Plaza Sotomayor" />
@@ -84,44 +86,7 @@ const alternates = hreflangAlternates && hreflangAlternates.length ? hreflangAlt
   <body id="top">
     <slot />
     <CookieBanner lang={lang} />
-    <script is:inline>
-      (() => {
-        const measurementId = 'G-HXM22WWPKP';
-        const consentKey = 'plaza-sotomayor-analytics-consent';
-        const banner = document.querySelector('[data-cookie-banner]');
-
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
-        window.gtag('consent', 'default', { analytics_storage: 'denied' });
-
-        const loadAnalytics = () => {
-          if (document.querySelector(`script[data-ga4="${measurementId}"]`)) return;
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-          script.dataset.ga4 = measurementId;
-          document.head.appendChild(script);
-          window.gtag('consent', 'update', { analytics_storage: 'granted' });
-          window.gtag('js', new Date());
-          window.gtag('config', measurementId, { anonymize_ip: true });
-        };
-
-        const savedConsent = localStorage.getItem(consentKey);
-        if (savedConsent === 'accepted') loadAnalytics();
-        if (savedConsent) banner?.setAttribute('hidden', '');
-
-        document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
-          localStorage.setItem(consentKey, 'accepted');
-          loadAnalytics();
-          banner?.setAttribute('hidden', '');
-        });
-        document.querySelector('[data-cookie-reject]')?.addEventListener('click', () => {
-          localStorage.setItem(consentKey, 'rejected');
-          window.gtag('consent', 'update', { analytics_storage: 'denied' });
-          banner?.setAttribute('hidden', '');
-        });
-      })();
-    </script>
+    <script is:inline src="/analytics-choice.js"></script>
     <script is:inline>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
